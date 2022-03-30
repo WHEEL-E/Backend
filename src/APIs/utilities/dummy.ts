@@ -1,0 +1,1 @@
+// General helper or reapted functions or any other utility functions
