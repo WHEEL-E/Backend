@@ -4,6 +4,7 @@ const app: Application = express()
 const port: number = 3000
 
 require('./APIs/config/database_config')()
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
