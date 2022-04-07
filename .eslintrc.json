@@ -15,5 +15,11 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "newline-before-return":"warn",
+        "space-before-function-paren":"warn",
+        "sort-imports":"warn",
+        "indent":"warn",
+        "camelcase":"off",
+        "key-spacing":"warn"
     }
 }
