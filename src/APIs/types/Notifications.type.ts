@@ -1,8 +1,7 @@
-export interface NotificationObject {
+export interface NotificationObjectType {
     userID: number;
     title: string;
     description: string;
-    createdAt?: Date;
-    isRead?: boolean;
+    isRead: boolean;
     type: string;
 }

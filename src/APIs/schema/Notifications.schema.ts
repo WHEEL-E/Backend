@@ -1,31 +1,36 @@
 import mongoose from 'mongoose'
 
-const NotificationsSchema = new mongoose.Schema({
-  userID: {
-    type: Number,
-    required: true
+const NotificationsSchema = new mongoose.Schema(
+  {
+    user_id: {
+      type: Number,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    isRead: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    type: {
+      type: String,
+      required: true
+    }
   },
-  title: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: new Date()
-  },
-  isRead: {
-    type: Boolean,
-    default: false
-  },
-  type: {
-    type: String,
-    required: true
+  {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
+    }
   }
-})
+)
 
 const NotificationsModel = mongoose.model('Notifications', NotificationsSchema)
 

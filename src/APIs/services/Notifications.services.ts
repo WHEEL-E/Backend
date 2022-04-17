@@ -1,5 +1,5 @@
 import * as NotificationModel from '../models/Notifications.model'
-import { NotificationObject } from '../types/Notifications.type'
+import { NotificationObjectType } from '../types/Notifications.type'
 
-export const createNotification = (notificationObject: NotificationObject) =>
+export const createNotification = (notificationObject: NotificationObjectType) =>
   NotificationModel.createNotification(notificationObject)
