@@ -1,25 +1,7 @@
 import { Schema, model } from 'mongoose'
-
-interface IPatientModel{
-      name: string
-      email: string
-      password: string
-      phone: number
-      emergency_number: number
-      address: string
-      gender: string
-      weight?: number
-      height?: number
-      dob: Date
-      smoking?: boolean
-      chair_serial_id?: string
-      // Commented until we know how we're going to store them effeciently
-      // profile_picture: string
-      // medical_history: string
-}
-
+import { IPatientModel } from '../types/Patient.type'
 // Patient ID is generated dynamically by the db
-const patientSchema = new Schema<IPatientModel>({
+const PatientSchema = new Schema<IPatientModel>({
   name: {
     type: String,
     minlength: 3,
@@ -74,6 +56,6 @@ const patientSchema = new Schema<IPatientModel>({
   // medical_history: {}
 })
 
-const Patient = model('Patient', patientSchema)
+const Patient = model('Patient', PatientSchema)
 
 export default Patient

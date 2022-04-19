@@ -1,16 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose'
-
-interface IReminderModel{
-      patient_id: mongoose.Types.ObjectId | undefined
-      supervisor_id: mongoose.Types.ObjectId | undefined
-      title: string
-      description: string
-      due_date: Date
-      created_at: Date
-      updated_at: Date
-}
+import { IReminderModel } from '../types/Reminder.type'
 // Reminder ID is generated dynamically by the db
-const reminderSchema = new Schema<IReminderModel>({
+const ReminderSchema = new Schema<IReminderModel>({
   patient_id: {
     type: mongoose.Types.ObjectId,
     required: true
@@ -38,6 +29,6 @@ const reminderSchema = new Schema<IReminderModel>({
   }
 })
 
-const Reminder = model('Reminder', reminderSchema)
+const Reminder = model('Reminder', ReminderSchema)
 
 export default Reminder

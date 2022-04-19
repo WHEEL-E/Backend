@@ -1,15 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose'
-
-interface INote {
-  _id: Number
-  user_id: mongoose.Types.ObjectId | undefined
-  title: string
-  description: string
-  created_at: Date
-  updated_at: Date
-}
+import { INoteModel } from '../types/Note.type'
 // Note ID is generated dynamically by the db
-const notesSchema = new Schema<INote>({
+const NotesSchema = new Schema<INoteModel>({
   // patient_id
   user_id: {
     type: mongoose.Types.ObjectId,
@@ -31,4 +23,4 @@ const notesSchema = new Schema<INote>({
   }
 })
 
-export default model('Note', notesSchema)
+export default model('Note', NotesSchema)
