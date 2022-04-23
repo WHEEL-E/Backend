@@ -14,3 +14,9 @@ export const deleteNotification = (id: string) => {
 
   return response
 }
+
+export const getUserNotifications = (id: string) => {
+  const response = NotificationModel.getAllNotificationsByUserID(id)
+
+  return response
+}

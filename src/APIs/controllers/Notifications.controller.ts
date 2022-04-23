@@ -18,3 +18,12 @@ export const delteNotification: RequestHandler = async ({ params }) => {
     message: 'Notification has been deleted successfully'
   }
 }
+
+export const getUserNotifications : RequestHandler = async ({ params }) => {
+  const response = await NotificationServices.getUserNotifications(params.id)
+
+  return {
+    response: response,
+    message: 'Notifications have been fetched successfully'
+  }
+}

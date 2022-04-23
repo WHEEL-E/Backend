@@ -18,10 +18,10 @@ export const validateNotificationCreation = [
     .exists()
     .withMessage("Insuffecient parameters. Invalid 'type' is required"),
 
-  body('userID')
+  body('user_id')
     .isNumeric()
     .exists()
-    .withMessage("Insuffecient parameters. 'userID' is required"),
+    .withMessage("Insuffecient parameters. 'user_id' is required"),
 
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)

@@ -10,8 +10,8 @@ export const createNotification = async (
   return response
 }
 
-export const getAllNotificationsBuUserID = async (id: number) => {
-  const notifications = NotificationsModel.find()
+export const getAllNotificationsByUserID = async (id: string) => {
+  const notifications = NotificationsModel.find({ user_id: id })
 
   return notifications
 }

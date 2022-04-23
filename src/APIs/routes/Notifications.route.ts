@@ -5,6 +5,13 @@ import * as NotificationsValidator from '../validators/Notifications.validator'
 
 const router = express.Router()
 
+router.get(
+  '/:id',
+  NotificationsValidator.validateNotificationID,
+  (req: Request, res: Response, next: NextFunction) =>
+    handler({ req, res, next, fn: NotificationsController.getUserNotifications })
+)
+
 router.post(
   '/',
   NotificationsValidator.validateNotificationCreation,
