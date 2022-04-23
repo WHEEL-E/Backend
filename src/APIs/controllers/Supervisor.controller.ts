@@ -6,7 +6,7 @@ export const supervisiorSignUp: RequestHandler = async ({ body }) => {
 
   return {
     response: supervisior,
-    message: 'Succefully Registered'
+    message: 'Successfully Registered'
   }
 }
 
@@ -15,7 +15,7 @@ export const deleteSupervisor: RequestHandler = async ({ params }) => {
 
   return {
     response,
-    message: 'Succefully Deleted'
+    message: 'Successfully Deleted'
   }
 }
 
@@ -24,6 +24,24 @@ export const updateSupervisor: RequestHandler = async ({ params, body }) => {
 
   return {
     response,
-    message: 'Succefully Updated'
+    message: 'Successfully Updated'
+  }
+}
+
+export const getAllSupervisors: RequestHandler = async () => {
+  const response = await SupervisorServices.getAllSupervisors()
+
+  return {
+    response,
+    message: 'All Supervisors have been Successfully Fetched'
+  }
+}
+
+export const getSupervisorById: RequestHandler = async ({ params }) => {
+  const response = await SupervisorServices.getSupervisorById(params.id)
+
+  return {
+    response,
+    message: 'Supervisor\'s data Successfully Fetched'
   }
 }

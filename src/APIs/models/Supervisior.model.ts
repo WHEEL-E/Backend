@@ -27,3 +27,15 @@ export const deleteSupervisior = async (supervisorId: string) => {
 
   return response
 }
+
+export const getAllSupervisors = async () => {
+  const supervisors = await SupervisiorModel.find()
+
+  return supervisors
+}
+
+export const getSupervisorById = async (supervisorId: string) => {
+  const supervisor = await SupervisiorModel.findById(supervisorId)
+
+  return supervisor
+}

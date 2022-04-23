@@ -25,3 +25,18 @@ export const updateSupervisor = async (
 
   return supervisor
 }
+
+export const getAllSupervisors = async () => {
+  const supervisors = await SupervisiorModel.getAllSupervisors()
+
+  return supervisors
+}
+
+export const getSupervisorById = async (supervisorId: string) => {
+  const supervisor = await SupervisiorModel.getSupervisorById(supervisorId)
+  if (!supervisor) {
+    throw new UnprocessableError('Supervisor not found')
+  }
+
+  return supervisor
+}

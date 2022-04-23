@@ -5,6 +5,17 @@ import { handler } from '.'
 
 const router = express.Router()
 
+router.get('/', (req: Request, res: Response, next: NextFunction) =>
+  handler({ req, res, next, fn: SupervisorController.getAllSupervisors })
+)
+
+router.get(
+  '/:id',
+  SupervisorValidator.validateSupervisorID,
+  (req: Request, res: Response, next: NextFunction) =>
+    handler({ req, res, next, fn: SupervisorController.getSupervisorById })
+)
+
 router.post(
   '/',
   SupervisorValidator.validateSupervisorCreation,
