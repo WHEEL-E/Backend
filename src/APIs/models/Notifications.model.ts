@@ -23,7 +23,8 @@ export const editNotification = async (
     notificationID,
     {
       $set: newNotificationObject
-    }
+    },
+    { new: true }
   )
 
   return newNotitication
