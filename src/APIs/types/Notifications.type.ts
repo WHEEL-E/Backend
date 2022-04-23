@@ -1,5 +1,6 @@
 export interface NotificationObjectType {
-    userID: number;
+    _id?: string;
+    user_id: number;
     title: string;
     description: string;
     isRead: boolean;

@@ -32,5 +32,9 @@ export const validateNotificationID = [
   param('id')
     .exists()
     .withMessage("Insuffecient parameters. 'id' is required")
-    .isString()
+    .isString(),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    validateResults(req, res, next)
+  }
 ]
