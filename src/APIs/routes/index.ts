@@ -1,6 +1,7 @@
-import express from 'express'
-import { RouterHandlerInput } from '../types/general.types'
 import NotificationRoutes from './Notifications.route'
+import { RouterHandlerInput } from '../types/general.types'
+import SupervisorRoutes from './Supervisor.route'
+import express from 'express'
 
 const router = express.Router()
 
@@ -24,5 +25,6 @@ export const handler = async ({
 }
 
 router.use('/notifications', NotificationRoutes)
+router.use('/supervisor', SupervisorRoutes)
 
 export default router
