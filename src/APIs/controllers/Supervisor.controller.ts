@@ -18,3 +18,12 @@ export const deleteSupervisor: RequestHandler = async ({ params }) => {
     message: 'Succefully Deleted'
   }
 }
+
+export const updateSupervisor: RequestHandler = async ({ params, body }) => {
+  const response = await SupervisorServices.updateSupervisor(params.id, body)
+
+  return {
+    response,
+    message: 'Succefully Updated'
+  }
+}

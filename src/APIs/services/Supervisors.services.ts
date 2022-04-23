@@ -13,3 +13,15 @@ export const deleteSupervisor = async (supervisorId: string) => {
 
   return supervisor
 }
+
+export const updateSupervisor = async (
+  id: string,
+  newData: SupervisorObjectType
+) => {
+  const supervisor = await SupervisiorModel.updateSupervisior(id, newData)
+  if (!supervisor) {
+    throw new UnprocessableError('Supervisor not found')
+  }
+
+  return supervisor
+}

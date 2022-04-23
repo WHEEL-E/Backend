@@ -12,6 +12,14 @@ router.post(
     handler({ req, res, next, fn: SupervisorController.supervisiorSignUp })
 )
 
+router.put(
+  '/:id',
+  SupervisorValidator.validateSupervisorUpdate,
+  SupervisorValidator.validateSupervisorID,
+  (req: Request, res: Response, next: NextFunction) =>
+    handler({ req, res, next, fn: SupervisorController.updateSupervisor })
+)
+
 router.delete(
   '/:id',
   SupervisorValidator.validateSupervisorID,
