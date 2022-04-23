@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import validateResults from '../utilities/GeneralValidationFunction'
 
 export const validateNotificationCreation = [
@@ -26,4 +26,11 @@ export const validateNotificationCreation = [
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)
   }
+]
+
+export const validateNotificationID = [
+  param('id')
+    .exists()
+    .withMessage("Insuffecient parameters. 'id' is required")
+    .isString()
 ]

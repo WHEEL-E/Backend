@@ -6,6 +6,15 @@ export const createNotification: RequestHandler = async ({ body }) => {
 
   return {
     response: response,
-    message: 'Notification created successfully'
+    message: 'Notification has been created successfully'
+  }
+}
+
+export const delteNotification: RequestHandler = async ({ params }) => {
+  const response = await NotificationServices.deleteNotification(params.id)
+
+  return {
+    response: response,
+    message: 'Notification has been deleted successfully'
   }
 }
