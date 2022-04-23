@@ -8,3 +8,11 @@ export const createSupervisior = async (
 
   return response
 }
+
+// export const updateSupervisior = async (newData) => {}
+
+export const deleteSupervisior = async (supervisorId: string) => {
+  const response = await SupervisiorModel.findByIdAndDelete(supervisorId)
+
+  return response
+}

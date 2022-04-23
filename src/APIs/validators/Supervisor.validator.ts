@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import validateResults from '../utilities/GeneralValidationFunction'
 
 export const validateSupervisorCreation = [
@@ -41,6 +41,16 @@ export const validateSupervisorCreation = [
     .exists()
     .withMessage("Insuffecient parameters. 'phone' is required"),
 
+  (req: Request, res: Response, next: NextFunction) => {
+    validateResults(req, res, next)
+  }
+]
+
+export const validateSupervisorID = [
+  param('id')
+    .isString()
+    .exists()
+    .withMessage("Insuffecient parameters. 'id' is required"),
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)
   }

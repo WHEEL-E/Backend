@@ -9,3 +9,12 @@ export const supervisiorSignUp: RequestHandler = async ({ body }) => {
     message: 'Succefully Registered'
   }
 }
+
+export const deleteSupervisor: RequestHandler = async ({ params }) => {
+  const response = await SupervisorServices.deleteSupervisor(params.id)
+
+  return {
+    response,
+    message: 'Succefully Deleted'
+  }
+}
