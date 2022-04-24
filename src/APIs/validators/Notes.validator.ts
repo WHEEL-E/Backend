@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import validateResults from '../utilities/GeneralValidationFunction'
 
 export const validateNoteCreation = [body('user_id')
@@ -47,7 +47,7 @@ body('description')
   validateResults(req, res, next)
 }]
 
-export const validateNoteId = [body('id')
+export const validateNoteId = [param('id')
   .isString()
   .exists()
   .withMessage("Insuffecient parameters. 'id' is required"),

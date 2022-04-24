@@ -13,8 +13,8 @@ export const getAllNotes: RequestHandler = async ({ body }) => {
   }
 }
 
-export const getNote: RequestHandler = async ({ body }) => {
-  const noteId = new mongoose.Types.ObjectId(body.id)
+export const getNote: RequestHandler = async ({ params }) => {
+  const noteId = new mongoose.Types.ObjectId(params.id)
   const response = await NotesServices.getNote(noteId)
 
   return {
@@ -32,8 +32,8 @@ export const createNote: RequestHandler = async ({ body }) => {
   }
 }
 
-export const deleteNote: RequestHandler = async ({ body }) => {
-  const noteId = new mongoose.Types.ObjectId(body.id)
+export const deleteNote: RequestHandler = async ({ params }) => {
+  const noteId = new mongoose.Types.ObjectId(params.id)
   const response = await NotesServices.deleteNote(noteId)
 
   return {
@@ -42,9 +42,9 @@ export const deleteNote: RequestHandler = async ({ body }) => {
   }
 }
 
-export const updateNote: RequestHandler = async ({ body }) => {
+export const updateNote: RequestHandler = async ({ body, params }) => {
   const updateNoteInput : UpdateNoteObjectType = {
-    noteId: new mongoose.Types.ObjectId(body.id),
+    noteId: new mongoose.Types.ObjectId(params.id),
     title: body.title,
     description: body.description
   }
