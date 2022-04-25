@@ -1,5 +1,6 @@
 import * as NotificationsType from '../types/Notifications.type'
 import NotificationsModel from '../Schema/Notifications.schema'
+import mongoose from 'mongoose'
 
 export const createNotification = async (
   notificationObject: NotificationsType.NotificationObjectType
@@ -10,7 +11,9 @@ export const createNotification = async (
 }
 
 export const getAllNotificationsByUserID = async (id: string) => {
-  const notifications = NotificationsModel.find({ user_id: id })
+  const notifications = NotificationsModel.find({
+    user_id: new mongoose.Types.ObjectId(id)
+  })
 
   return notifications
 }
@@ -20,7 +23,7 @@ export const editNotification = async (
   newNotificationObject: NotificationsType.NotificationObjectType
 ) => {
   const newNotitication = await NotificationsModel.findByIdAndUpdate(
-    notificationID,
+    new mongoose.Types.ObjectId(notificationID),
     {
       $set: newNotificationObject
     },
@@ -31,7 +34,9 @@ export const editNotification = async (
 }
 
 export const deleteNotification = async (id: string) => {
-  const notification = await NotificationsModel.findByIdAndDelete(id)
+  const notification = await NotificationsModel.findByIdAndDelete(
+    new mongoose.Types.ObjectId(id)
+  )
 
   return notification
 }
