@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-
 export interface IReminderModel{
       patient_id: mongoose.Types.ObjectId | undefined
       supervisor_id: mongoose.Types.ObjectId | undefined
@@ -16,4 +15,11 @@ export type CreateReminderObjectType = {
       due_date:Date
       title:string
       description: string
+}
+
+export type UpdateReminderObjectType = {
+      reminder_id:mongoose.Types.ObjectId
+      title: string
+      description: string
+
 }

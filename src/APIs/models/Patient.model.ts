@@ -1,5 +1,5 @@
 import { CreatePatientObjectType } from '../types/Patient.type'
-import Patient from '../Schema/Patient.schema'
+import Patient from '../schema/Patient.schema'
 
 /**
  *

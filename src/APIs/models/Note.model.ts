@@ -1,5 +1,5 @@
 import { CreateNoteObjectType } from '../types/Note.type'
-import Note from '../Schema/Note.schema'
+import Note from '../schema/Note.schema'
 
 /**
  *

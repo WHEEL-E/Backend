@@ -1,5 +1,39 @@
-import { CreateReminderObjectType } from '../types/Reminder.type'
-import Reminder from '../Schema/Reminder.schema'
+import { CreateReminderObjectType, UpdateReminderObjectType } from '../types/Reminder.type'
+import Reminder from '../schema/Reminder.schema'
+import mongoose from 'mongoose'
+
+/**
+ *
+ * @param userId Id of the reminders owner
+ * @returns array of stored reminders
+ */
+export const getAllRemindersByPatientId = async (userId: mongoose.Types.ObjectId) => {
+  const reminders = await Reminder.find({ patient_id: userId })
+
+  return reminders
+}
+
+/**
+ *
+ * @param userId Id of the reminders owner
+ * @returns array of stored reminders
+ */
+export const getAllRemindersBySupervisorId = async (userId: mongoose.Types.ObjectId) => {
+  const reminders = await Reminder.find({ supervisor_id: userId })
+
+  return reminders
+}
+
+/**
+ *
+ * @param userId Id of the reminder to be retrieved
+ * @returns The stored reminder
+ */
+export const getReminder = async (reminderId: mongoose.Types.ObjectId) => {
+  const reminder = await Reminder.findOne({ _id: reminderId })
+
+  return reminder
+}
 
 /**
  *
@@ -8,9 +42,9 @@ import Reminder from '../Schema/Reminder.schema'
  */
 export const createReminder = async (reminderInput: CreateReminderObjectType) => {
   const reminder = await Reminder.create({
-    patient_id: reminderInput.patient_Id,
-    supervisor_id: reminderInput.supervisor_id,
-    due_date: reminderInput.due_date,
+    patient_id: new mongoose.Types.ObjectId(reminderInput.patient_Id),
+    supervisor_id: new mongoose.Types.ObjectId(reminderInput.supervisor_id),
+    due_date: new Date(reminderInput.due_date),
     title: reminderInput.title,
     description: reminderInput.description
   })
@@ -18,4 +52,27 @@ export const createReminder = async (reminderInput: CreateReminderObjectType) =>
   const response = reminder.save()
 
   return response
+}
+
+/**
+ *
+ * @param reimnderInput Id of the reminder to be deleted
+ * @returns the deleted reminder
+ */
+export const deleteReminder = async (reminderId: mongoose.Types.ObjectId) => {
+  const reminder = await Reminder.findByIdAndRemove(reminderId)
+
+  return reminder
+}
+
+/**
+ *
+ * @param reminderUpdateInput Id and updated data
+ * @returns the updated reminder
+ */
+export const updateReminder = async (reminderUpdateInput: UpdateReminderObjectType) => {
+  const { reminder_id, title, description } = reminderUpdateInput
+  const reminder = await Reminder.findOneAndUpdate({ _id: reminder_id }, { title: title, description: description }, { new: true })
+
+  return reminder
 }
