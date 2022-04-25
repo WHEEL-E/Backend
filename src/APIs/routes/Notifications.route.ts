@@ -1,5 +1,5 @@
-import express, { Request, Response, NextFunction } from 'express'
 import * as NotificationsController from '../controllers/Notifications.controller'
+import express, { NextFunction, Request, Response } from 'express'
 import { handler } from '.'
 import { validateNotificationCreation } from '../validators/Notifications.validator'
 
