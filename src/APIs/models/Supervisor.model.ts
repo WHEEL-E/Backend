@@ -2,9 +2,9 @@ import SupervisiorModel from '../schema/Supervisior.schema'
 import { SupervisorObjectType } from '../types/Supervisor.type'
 
 export const createSupervisior = async (
-  supervisiorDate: SupervisorObjectType
+  supervisorDate: SupervisorObjectType
 ) => {
-  const response = await SupervisiorModel.create(supervisiorDate)
+  const response = await SupervisiorModel.create(supervisorDate)
 
   return response
 }

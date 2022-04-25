@@ -2,10 +2,10 @@ import * as SupervisorServices from '../services/Supervisors.services'
 import { RequestHandler } from 'express'
 
 export const supervisiorSignUp: RequestHandler = async ({ body }) => {
-  const supervisior = await SupervisorServices.createSupervisor(body)
+  const supervisor = await SupervisorServices.createSupervisor(body)
 
   return {
-    response: supervisior,
+    response: supervisor,
     message: 'Successfully Registered'
   }
 }
@@ -15,7 +15,7 @@ export const deleteSupervisor: RequestHandler = async ({ params }) => {
 
   return {
     response,
-    message: 'Successfully Deleted'
+    message: 'Supervisor Successfully Deleted'
   }
 }
 
@@ -24,7 +24,7 @@ export const updateSupervisor: RequestHandler = async ({ params, body }) => {
 
   return {
     response,
-    message: 'Successfully Updated'
+    message: 'Supervisor Successfully Updated'
   }
 }
 
