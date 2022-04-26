@@ -1,5 +1,5 @@
 import * as NotificationsType from '../types/Notifications.type'
-import NotificationsModel from '../Schema/Notifications.schema'
+import NotificationsModel from '../schema/Notifications.schema'
 import mongoose from 'mongoose'
 
 export const createNotification = async (

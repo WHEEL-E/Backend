@@ -9,7 +9,12 @@ router.get(
   '/:id',
   NotificationsValidator.validateNotificationID,
   (req: Request, res: Response, next: NextFunction) =>
-    handler({ req, res, next, fn: NotificationsController.getUserNotifications })
+    handler({
+      req,
+      res,
+      next,
+      fn: NotificationsController.getUserNotifications
+    })
 )
 
 router.post(
