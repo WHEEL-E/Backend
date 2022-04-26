@@ -1,5 +1,5 @@
 import { CreatePatientObjectType } from '../types/Patient.type'
-import Patient from '../Schema/Patient.schema'
+import Patient from '../schema/Patient.schema'
 
 /**
  *
@@ -7,7 +7,7 @@ import Patient from '../Schema/Patient.schema'
  * @returns id of the newly created patient
  */
 export const createPatient = async (patientInput: CreatePatientObjectType) => {
-  const patient = await Patient.create({
+  const response = await Patient.create({
     name: patientInput.patient_name,
     email: patientInput.email,
     password: patientInput.password,
@@ -20,7 +20,6 @@ export const createPatient = async (patientInput: CreatePatientObjectType) => {
     dob: patientInput.dob,
     smoking: patientInput.smoking
   })
-  const response = patient.save()
 
   return response
 }
