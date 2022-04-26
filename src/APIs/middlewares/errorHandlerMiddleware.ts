@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import { HttpError } from '../types/general.types'
 import getTimeNowFormatted from '../utilities/FormatTime'
 

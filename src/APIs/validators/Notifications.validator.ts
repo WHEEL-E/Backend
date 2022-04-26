@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import validateResults from '../utilities/GeneralValidationFunction'
 
 export const validateNotificationCreation = [
@@ -18,10 +18,21 @@ export const validateNotificationCreation = [
     .exists()
     .withMessage("Insuffecient parameters. Invalid 'type' is required"),
 
-  body('userID')
+  body('user_id')
     .isNumeric()
     .exists()
-    .withMessage("Insuffecient parameters. 'userID' is required"),
+    .withMessage("Insuffecient parameters. 'user_id' is required"),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    validateResults(req, res, next)
+  }
+]
+
+export const validateNotificationID = [
+  param('id')
+    .exists()
+    .withMessage("Insuffecient parameters. 'id' is required")
+    .isString(),
 
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)
