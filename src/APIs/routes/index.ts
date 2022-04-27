@@ -1,5 +1,6 @@
 import NotesRoutes from './NotesRoutes.route'
 import NotificationRoutes from './Notifications.route'
+import PatientsRoutes from './PatientRoutes.route'
 import { RouterHandlerInput } from '../types/general.types'
 import express from 'express'
 
@@ -26,5 +27,6 @@ export const handler = async ({
 
 router.use('/notifications', NotificationRoutes)
 router.use('/notes', NotesRoutes)
+router.use('/patients', PatientsRoutes)
 
 export default router
