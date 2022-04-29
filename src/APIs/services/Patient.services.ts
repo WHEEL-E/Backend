@@ -1,6 +1,7 @@
 import * as PatientModel from '../models/Patient.model'
 import { CreatePatientObjectType } from '../types/Patient.type'
 import { UnprocessableError } from '../types/general.types'
+import bcrypt from 'bcrypt'
 import mongoose from 'mongoose'
 
 export const getAllPatients = () => {
@@ -12,7 +13,9 @@ export const getAllPatients = () => {
   return patients
 }
 
-export const getAllPatientsBySupervisorId = (userId: mongoose.Types.ObjectId) => {
+export const getAllPatientsBySupervisorId = (
+  userId: mongoose.Types.ObjectId
+) => {
   const patients = PatientModel.getAllPatientsBySupervisorId(userId)
   if (!patients) {
     throw new UnprocessableError('Could not fetch associated patients ')
@@ -21,7 +24,7 @@ export const getAllPatientsBySupervisorId = (userId: mongoose.Types.ObjectId) =>
   return patients
 }
 
-export const getPatient = (patientId:mongoose.Types.ObjectId) => {
+export const getPatient = (patientId: mongoose.Types.ObjectId) => {
   const patient = PatientModel.getPatient(patientId)
   if (!patient) {
     throw new UnprocessableError('Could not fetch patient')
@@ -30,8 +33,18 @@ export const getPatient = (patientId:mongoose.Types.ObjectId) => {
   return patient
 }
 
-export const createPatient = (createPatientInput: CreatePatientObjectType) =>
-  PatientModel.createPatient(createPatientInput)
+export const createPatient = async (
+  createPatientInput: CreatePatientObjectType
+) => {
+  const hashedPass = await bcrypt.hash(createPatientInput.password, 10)
+
+  const response = await PatientModel.createPatient({
+    ...createPatientInput,
+    password: hashedPass
+  })
+
+  return response
+}
 
 export const deletePatient = (patientId: mongoose.Types.ObjectId) => {
   const patient = PatientModel.deletePatient(patientId)
@@ -43,7 +56,10 @@ export const deletePatient = (patientId: mongoose.Types.ObjectId) => {
   return patient
 }
 
-export const updatePatient = (patientId: mongoose.Types.ObjectId, patientUpdateInput: CreatePatientObjectType) => {
+export const updatePatient = (
+  patientId: mongoose.Types.ObjectId,
+  patientUpdateInput: CreatePatientObjectType
+) => {
   const patient = PatientModel.updatePatient(patientId, patientUpdateInput)
   if (!patient) {
     throw new UnprocessableError('could not update patient')
