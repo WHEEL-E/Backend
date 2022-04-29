@@ -12,7 +12,7 @@ router.get(
 )
 
 router.get(
-  '/',
+  '/:id',
   validateSupervisorId, (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: PatientController.getAllPatientsBySupervisorId })
   }
