@@ -3,9 +3,9 @@ import { RequestHandler } from 'express'
 import { UpdateReminderObjectType } from '../types/Reminder.type'
 import mongoose from 'mongoose'
 
-export const getAllRemindersByPatientId: RequestHandler = async ({ body }) => {
-  const userId = new mongoose.Types.ObjectId(body.user_id)
-  const response = await RemindersServices.getAllRemindersByPatientId(userId)
+export const getAllRemindersByPatientId: RequestHandler = async ({ params }) => {
+  const patientId = new mongoose.Types.ObjectId(params.user_id)
+  const response = await RemindersServices.getAllRemindersByPatientId(patientId)
 
   return {
     response: response,
@@ -13,9 +13,9 @@ export const getAllRemindersByPatientId: RequestHandler = async ({ body }) => {
   }
 }
 
-export const getAllRemindersBySupervisorId: RequestHandler = async ({ body }) => {
-  const userId = new mongoose.Types.ObjectId(body.user_id)
-  const response = await RemindersServices.getAllRemindersByPatientId(userId)
+export const getAllRemindersBySupervisorId: RequestHandler = async ({ params }) => {
+  const supervisorId = new mongoose.Types.ObjectId(params.user_id)
+  const response = await RemindersServices.getAllRemindersByPatientId(supervisorId)
 
   return {
     response: response,

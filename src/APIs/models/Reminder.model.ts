@@ -7,8 +7,8 @@ import mongoose from 'mongoose'
  * @param userId Id of the reminders owner
  * @returns array of stored reminders
  */
-export const getAllRemindersByPatientId = async (userId: mongoose.Types.ObjectId) => {
-  const reminders = await Reminder.find({ patient_id: userId })
+export const getAllRemindersByPatientId = async (patientId: mongoose.Types.ObjectId) => {
+  const reminders = await Reminder.find({ patient_id: patientId })
 
   return reminders
 }
@@ -18,8 +18,8 @@ export const getAllRemindersByPatientId = async (userId: mongoose.Types.ObjectId
  * @param userId Id of the reminders owner
  * @returns array of stored reminders
  */
-export const getAllRemindersBySupervisorId = async (userId: mongoose.Types.ObjectId) => {
-  const reminders = await Reminder.find({ supervisor_id: userId })
+export const getAllRemindersBySupervisorId = async (supervisorId: mongoose.Types.ObjectId) => {
+  const reminders = await Reminder.find({ supervisor_id: supervisorId })
 
   return reminders
 }

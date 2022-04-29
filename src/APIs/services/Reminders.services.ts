@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 export const getAllRemindersByPatientId = (userId: mongoose.Types.ObjectId) => {
   const reminders = RemindersModel.getAllRemindersByPatientId(userId)
   if (!reminders) {
-    throw new UnprocessableError('Could not fetch reminders ')
+    throw new UnprocessableError('Could not fetch reminders using patientId')
   }
 
   return reminders
@@ -15,7 +15,7 @@ export const getAllRemindersByPatientId = (userId: mongoose.Types.ObjectId) => {
 export const getAllRemindersBySupervisorId = (userId: mongoose.Types.ObjectId) => {
   const reminders = RemindersModel.getAllRemindersBySupervisorId(userId)
   if (!reminders) {
-    throw new UnprocessableError('Could not fetch reminders ')
+    throw new UnprocessableError('Could not fetch reminders using supervisorId')
   }
 
   return reminders
@@ -46,7 +46,7 @@ export const deleteReminder = (reminderId: mongoose.Types.ObjectId) => {
 export const updateReminder = (reminderUpdateInput: UpdateReminderObjectType) => {
   const reminder = RemindersModel.updateReminder(reminderUpdateInput)
   if (!reminder) {
-    throw new UnprocessableError('could not update reminder')
+    throw new UnprocessableError('Could not update reminder')
   }
 
   return reminder

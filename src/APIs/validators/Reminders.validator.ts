@@ -64,3 +64,21 @@ export const validateReminderId = [param('id')
 (req: Request, res: Response, next: NextFunction) => {
   validateResults(req, res, next)
 }]
+
+export const validatePatientId = [param('id')
+  .isString()
+  .exists()
+  .withMessage("Insuffecient parameters. 'id' is required"),
+
+(req: Request, res: Response, next: NextFunction) => {
+  validateResults(req, res, next)
+}]
+
+export const validateSupervisorId = [param('id')
+  .isString()
+  .exists()
+  .withMessage("Insuffecient parameters. 'id' is required"),
+
+(req: Request, res: Response, next: NextFunction) => {
+  validateResults(req, res, next)
+}]
