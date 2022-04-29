@@ -50,3 +50,6 @@ export const getSupervisorById = async (supervisorId: string) => {
 
   return supervisor
 }
+
+export const filterSupervisorsByName = async (name: string) =>
+  SupervisorModel.filterSupervisorsByName(name)
