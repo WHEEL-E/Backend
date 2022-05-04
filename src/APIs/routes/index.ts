@@ -1,5 +1,6 @@
 import NotesRoutes from './NotesRoutes.route'
 import NotificationRoutes from './Notifications.route'
+import PatientsRoutes from './PatientRoutes.route'
 import RemindersRoutes from './Reminders.route'
 import { RouterHandlerInput } from '../types/general.types'
 import SupervisorRoutes from './Supervisor.route'
@@ -30,5 +31,6 @@ router.use('/notifications', NotificationRoutes)
 router.use('/supervisor', SupervisorRoutes)
 router.use('/notes', NotesRoutes)
 router.use('/reminders', RemindersRoutes)
+router.use('/patients', PatientsRoutes)
 
 export default router
