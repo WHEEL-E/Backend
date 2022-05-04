@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { CreateNoteObjectType, UpdateNoteObjectType } from '../types/Note.type'
 import Note from '../schema/Note.schema'
 import mongoose from 'mongoose'
@@ -23,6 +24,10 @@ export const getNote = async (noteId: mongoose.Types.ObjectId) => {
 
   return note
 }
+=======
+import { CreateNoteObjectType } from '../types/Note.type'
+import Note from '../schema/Note.schema'
+>>>>>>> reminders-cruds
 
 /**
  *
