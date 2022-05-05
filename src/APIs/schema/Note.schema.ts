@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose'
 import { INoteModel } from '../types/Note.type'
 // Note ID is generated dynamically by the db
-const NotesSchema = new Schema<INoteModel>({
+export const NotesSchema = new Schema<INoteModel>({
   // patient_id
   user_id: {
     type: mongoose.Types.ObjectId,
