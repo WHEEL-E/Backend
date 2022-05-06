@@ -1,3 +1,4 @@
+import LoginRoutes from './LoginRoutes.route'
 import NotesRoutes from './NotesRoutes.route'
 import NotificationRoutes from './Notifications.route'
 import PatientsRoutes from './PatientRoutes.route'
@@ -28,6 +29,7 @@ export const handler = async ({
 }
 
 router.use('/notifications', NotificationRoutes)
+router.use('/login', LoginRoutes)
 router.use('/supervisor', SupervisorRoutes)
 router.use('/notes', NotesRoutes)
 router.use('/reminders', RemindersRoutes)

@@ -33,6 +33,17 @@ export const getPatient = async (patientId: mongoose.Types.ObjectId) => {
 }
 
 /**
+  *
+  * @param email of the patient
+  * @returns patient data
+  */
+export const getPatientByEmail = async (email: string) => {
+  const patient = await Patient.findOne({ email: email })
+
+  return patient
+}
+
+/**
  *
  * @param patientInput create new patient data
  * @returns id of the newly created patient

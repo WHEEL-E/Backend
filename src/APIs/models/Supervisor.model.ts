@@ -40,6 +40,12 @@ export const getSupervisorById = async (supervisorId: string) => {
   return supervisor
 }
 
+export const getSupervisorByEmail = async (email: string) => {
+  const supervisor = await SupervisiorModel.findOne({ email: email })
+
+  return supervisor
+}
+
 export const filterSupervisorsByName = async (name: string) => {
   const supervisors = await SupervisiorModel.find({
     name: { $regex: name, $options: 'i' }
