@@ -42,6 +42,16 @@ export const getSupervisorById: RequestHandler = async ({ params }) => {
 
   return {
     response,
-    message: 'Supervisor\'s data Successfully Fetched'
+    message: "Supervisor's data Successfully Fetched"
+  }
+}
+
+export const filterSupervisorsByName: RequestHandler = async ({ query }) => {
+  const name: any = query.name
+  const response = await SupervisorServices.filterSupervisorsByName(name)
+
+  return {
+    response,
+    message: "Supervisors's data Successfully Fetched"
   }
 }

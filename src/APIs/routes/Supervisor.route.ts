@@ -5,8 +5,8 @@ import { handler } from '.'
 
 const router = express.Router()
 
-router.get('/', (req: Request, res: Response, next: NextFunction) =>
-  handler({ req, res, next, fn: SupervisorController.getAllSupervisors })
+router.get('/search', (req: Request, res: Response, next: NextFunction) =>
+  handler({ req, res, next, fn: SupervisorController.filterSupervisorsByName })
 )
 
 router.get(
@@ -16,6 +16,9 @@ router.get(
     handler({ req, res, next, fn: SupervisorController.getSupervisorById })
 )
 
+router.get('/', (req: Request, res: Response, next: NextFunction) =>
+  handler({ req, res, next, fn: SupervisorController.getAllSupervisors })
+)
 router.post(
   '/',
   SupervisorValidator.validateSupervisorCreation,
