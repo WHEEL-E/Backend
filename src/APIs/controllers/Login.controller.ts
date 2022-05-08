@@ -2,7 +2,7 @@ import * as LoginService from '../services/Login.services'
 import { RequestHandler } from 'express'
 
 export const login: RequestHandler = async ({ body }) => {
-  const response = await LoginService.login(body.email, body.password)
+  const response = await LoginService.login(body.email, body.password, body.role)
 
   return {
     response: response,

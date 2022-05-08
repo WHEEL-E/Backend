@@ -1,15 +1,21 @@
 import * as PatientModel from '../models/Patient.model'
 import * as SupervisorModel from '../models/Supervisor.model'
 import * as jwt from 'jsonwebtoken'
+import { USER_ROLES } from '../types/User.types'
 import { UnprocessableError } from '../types/general.types'
 import bcyrpt from 'bcrypt'
 
-export const login = async (email: string, password:string) => {
-  // user can be patient or a supervisor
+export const login = async (email: string, password:string, role:string) => {
   let user
-  user = await PatientModel.getPatientByEmail(email)
-  if (!user) {
-    user = await SupervisorModel.getSupervisorByEmail(email)
+  switch (role) {
+    case USER_ROLES.PATIENT:
+      user = await PatientModel.getPatientByEmail(email)
+      break
+    case USER_ROLES.SUPERVISOR:
+      user = await SupervisorModel.getSupervisorByEmail(email)
+      break
+    default:
+      break
   }
 
   if (!user) {
