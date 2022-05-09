@@ -6,7 +6,7 @@ import { handler } from '.'
 const router = express.Router()
 // we can add a user_id validation here later
 router.get(
-  '/', (req: Request, res: Response, next: NextFunction) => {
+  '/user/:userID', (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: NotesController.getAllNotes })
   }
 )

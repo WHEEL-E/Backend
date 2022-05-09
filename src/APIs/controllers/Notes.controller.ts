@@ -3,8 +3,8 @@ import { RequestHandler } from 'express'
 import { UpdateNoteObjectType } from '../types/Note.type'
 import mongoose from 'mongoose'
 
-export const getAllNotes: RequestHandler = async ({ body }) => {
-  const userId = new mongoose.Types.ObjectId(body.user_id)
+export const getAllNotes: RequestHandler = async ({ params }) => {
+  const userId = new mongoose.Types.ObjectId(params.userID)
   const response = await NotesServices.getAllNotes(userId)
 
   return {
@@ -43,7 +43,7 @@ export const deleteNote: RequestHandler = async ({ params }) => {
 }
 
 export const updateNote: RequestHandler = async ({ body, params }) => {
-  const updateNoteInput : UpdateNoteObjectType = {
+  const updateNoteInput: UpdateNoteObjectType = {
     noteId: new mongoose.Types.ObjectId(params.id),
     title: body.title,
     description: body.description

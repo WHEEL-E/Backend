@@ -1,10 +1,10 @@
-import express, { Application } from 'express'
-import Routes from './APIs/routes/index'
-import cors from 'cors'
 import {
   errorHanlder,
   notFoundHandler
 } from './APIs/middlewares/errorHandlerMiddleware'
+import express, { Application } from 'express'
+import Routes from './APIs/routes/index'
+import cors from 'cors'
 
 const app: Application = express()
 const port: number = 3000
