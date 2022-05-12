@@ -84,7 +84,7 @@ export const deletePatient = async (patientId:mongoose.Types.ObjectId) => {
  * @returns the updated patient record
  */
 export const updatePatient = async (patientId: mongoose.Types.ObjectId, updatePatientInput:CreatePatientObjectType) => {
-  const patient = Patient.findByIdAndUpdate(patientId, updatePatientInput)
+  const patient = Patient.findByIdAndUpdate(patientId, updatePatientInput, { returnDocument: 'after' })
 
   return patient
 }

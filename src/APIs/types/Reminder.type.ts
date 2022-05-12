@@ -10,7 +10,7 @@ export interface IReminderModel{
 }
 
 export type CreateReminderObjectType = {
-      patient_Id: mongoose.Types.ObjectId
+      patient_id: mongoose.Types.ObjectId
       supervisor_id: mongoose.Types.ObjectId
       due_date:Date
       title:string
