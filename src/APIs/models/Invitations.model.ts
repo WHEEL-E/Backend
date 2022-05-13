@@ -22,7 +22,7 @@ export const updateInvitation = async (
   newState: InvitationStatus
 ) => {
   const updatedInvitation = await Invitations.updateOne(
-    new mongoose.Types.ObjectId(invitationID),
+    { _id: new mongoose.Types.ObjectId(invitationID) },
     {
       status: newState
     },

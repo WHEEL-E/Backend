@@ -2,7 +2,7 @@ import mongoose, { Schema, model } from 'mongoose'
 
 const InvitationSchema = new Schema(
   {
-    form_id: {
+    from_id: {
       type: mongoose.Types.ObjectId,
       ref: 'Patient',
       required: true

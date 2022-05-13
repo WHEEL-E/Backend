@@ -52,11 +52,16 @@ export const getInvitations = async (userID: string, userType: USER_ROLES) => {
 }
 
 export const acceptInvitation = async (inivitationID: string) => {
+  console.log(inivitationID)
   const response = await InvitationModels.updateInvitation(
     inivitationID,
     InvitationStatus.ACCEPTED
   )
   const invitation = await InvitationModels.getInvitation(inivitationID)
+  if (!invitation) {
+    throw new UnprocessableError('Invitation not found')
+  }
+
   await linkPatient(invitation.to_id, invitation.from_id)
   await linkSupervisor(invitation.to_id, invitation.from_id)
 
