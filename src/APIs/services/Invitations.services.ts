@@ -35,6 +35,9 @@ export const UpdateInvitationService = async (
 export const deleteInvitation = async (id: string) =>
   InvitationModels.deleteInvitation(id)
 
+export const getInvitation = async (id: string) =>
+  InvitationModels.getInvitation(id)
+
 export const getInvitations = async (userID: string, userType: USER_ROLES) => {
   switch (userType) {
     case USER_ROLES.PATIENT:
