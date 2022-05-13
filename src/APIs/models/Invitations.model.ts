@@ -5,6 +5,10 @@ import {
 import Invitations from '../schema/Invitation.schems'
 import mongoose from 'mongoose'
 
+export const getInvitation = async (id: string) => {
+  return await Invitations.findById(new mongoose.Types.ObjectId(id))
+}
+
 export const createInvitation = async (
   invitationInput: CreateInvitationObjectType
 ) => {
@@ -14,7 +18,7 @@ export const createInvitation = async (
 }
 
 export const updateInvitation = async (
-  invitationID: number,
+  invitationID: string,
   newState: InvitationStatus
 ) => {
   const updatedInvitation = await Invitations.updateOne(
@@ -28,7 +32,7 @@ export const updateInvitation = async (
   return updatedInvitation
 }
 
-export const deleteInvitation = async (id: number) => {
+export const deleteInvitation = async (id: string) => {
   const invitation = await Invitations.findByIdAndDelete(
     new mongoose.Types.ObjectId(id)
   )
@@ -36,7 +40,7 @@ export const deleteInvitation = async (id: number) => {
   return invitation
 }
 
-export const getPatientInvitations = async (patientID: number) => {
+export const getPatientInvitations = async (patientID: string) => {
   const invitations = await Invitations.find({
     from_id: new mongoose.Types.ObjectId(patientID)
   })
@@ -44,7 +48,7 @@ export const getPatientInvitations = async (patientID: number) => {
   return invitations
 }
 
-export const getSupervisorInvitations = async (supervisorID: number) => {
+export const getSupervisorInvitations = async (supervisorID: string) => {
   const invitations = await Invitations.find({
     from_id: new mongoose.Types.ObjectId(supervisorID)
   })

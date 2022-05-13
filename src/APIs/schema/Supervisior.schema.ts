@@ -29,6 +29,10 @@ const SupervisiorSchema = new mongoose.Schema(
     profile_picture: {
       type: String,
       required: true
+    },
+    associated_patients: {
+      type: [{ type: mongoose.Types.ObjectId, ref: 'Patient' }],
+      default: []
     }
   },
   {
