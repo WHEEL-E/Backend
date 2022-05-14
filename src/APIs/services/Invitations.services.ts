@@ -52,7 +52,6 @@ export const getInvitations = async (userID: string, userType: USER_ROLES) => {
 }
 
 export const acceptInvitation = async (inivitationID: string) => {
-  console.log(inivitationID)
   const response = await InvitationModels.updateInvitation(
     inivitationID,
     InvitationStatus.ACCEPTED
