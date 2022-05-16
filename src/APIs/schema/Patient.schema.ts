@@ -49,6 +49,10 @@ const PatientSchema = new Schema<IPatientModel>({
   smoking: {
     type: Boolean
   },
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
   chair_serial_id: {
     type: String
   },
