@@ -14,7 +14,8 @@ export const sendVerificationMail = async (
 ) => {
   const verficationToken = await jwt.sign(
     { data: { id: id, user_email: email, tag: 'VerficationToken' } },
-    'My_SECRET'
+    'My_SECRET',
+    { expiresIn: '2h' }
   )
 
   await VerifiicationMailModel.createVerificationToken(id, verficationToken)
