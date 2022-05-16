@@ -21,3 +21,7 @@ export const findToken = async (id: mongoose.Types.ObjectId, token: string) => {
 
   return fetchedToken
 }
+
+export const removeToken = async (id: mongoose.Types.ObjectId) => {
+  return await VerificationTokenModel.findByIdAndRemove(id)
+}

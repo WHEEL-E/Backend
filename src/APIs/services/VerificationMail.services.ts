@@ -39,6 +39,7 @@ export const verifyMail = async (
   }
 
   const updatedUser = await UserVariations(id, userType, 'update')
+  await VerifiicationMailModel.removeToken(verificationToken._id)
 
   return updatedUser
 }
