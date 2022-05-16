@@ -110,3 +110,18 @@ export const linkSupervisor = async (
     return 'Patient not found'
   }
 }
+
+export const updateVerificationStatus = async (
+  id: mongoose.Types.ObjectId,
+  newValue: Boolean
+) => {
+  const patient = await Patient.findByIdAndUpdate(
+    id,
+    {
+      isVerified: newValue
+    },
+    { new: true }
+  )
+
+  return patient
+}

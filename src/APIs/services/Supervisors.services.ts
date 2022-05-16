@@ -2,6 +2,7 @@ import * as SupervisorModel from '../models/Supervisor.model'
 import { SupervisorObjectType } from '../types/Supervisor.type'
 import { UnprocessableError } from '../types/general.types'
 import bcrypt from 'bcrypt'
+import mongoose from 'mongoose'
 
 export const createSupervisor = async (
   supervisorData: SupervisorObjectType
@@ -42,7 +43,7 @@ export const getAllSupervisors = async () => {
   return supervisors
 }
 
-export const getSupervisorById = async (supervisorId: string) => {
+export const getSupervisorById = async (supervisorId: mongoose.Types.ObjectId) => {
   const supervisor = await SupervisorModel.getSupervisorById(supervisorId)
   if (!supervisor) {
     throw new UnprocessableError('Supervisor not found')

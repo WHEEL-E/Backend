@@ -1,8 +1,11 @@
 import * as SupervisorServices from '../services/Supervisors.services'
 import { RequestHandler } from 'express'
+import mongoose from 'mongoose'
+import { sendVerificationMail } from '../services/VerificationMail.services'
 
 export const supervisiorSignUp: RequestHandler = async ({ body }) => {
   const supervisor = await SupervisorServices.createSupervisor(body)
+  await sendVerificationMail(supervisor.email, supervisor._id)
 
   return {
     response: supervisor,
@@ -38,7 +41,7 @@ export const getAllSupervisors: RequestHandler = async () => {
 }
 
 export const getSupervisorById: RequestHandler = async ({ params }) => {
-  const response = await SupervisorServices.getSupervisorById(params.id)
+  const response = await SupervisorServices.getSupervisorById(new mongoose.Types.ObjectId(params.id))
 
   return {
     response,
