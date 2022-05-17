@@ -8,7 +8,9 @@ import mongoose from 'mongoose'
  * @param supervisorId
  * @returns all patients data associated with a certain supervisor
  */
-export const getAllPatientsBySupervisorId = async (supervisorId: mongoose.Types.ObjectId) => {}
+export const getAllPatientsBySupervisorId = async (
+  supervisorId: mongoose.Types.ObjectId
+) => {}
 
 /**
  *
@@ -22,10 +24,10 @@ export const getAllPatients = async () => {
 }
 
 /**
-  *
-  * @param patientId
-  * @returns patient data
-  */
+ *
+ * @param patientId
+ * @returns patient data
+ */
 export const getPatient = async (patientId: mongoose.Types.ObjectId) => {
   const patient = Patient.findById(patientId)
 
@@ -33,10 +35,10 @@ export const getPatient = async (patientId: mongoose.Types.ObjectId) => {
 }
 
 /**
-  *
-  * @param email of the patient
-  * @returns patient data
-  */
+ *
+ * @param email of the patient
+ * @returns patient data
+ */
 export const getPatientByEmail = async (email: string) => {
   const patient = await Patient.findOne({ email: email })
 
@@ -72,7 +74,7 @@ export const createPatient = async (patientInput: CreatePatientObjectType) => {
  * @param patientId
  * @returns the deleted patient record
  */
-export const deletePatient = async (patientId:mongoose.Types.ObjectId) => {
+export const deletePatient = async (patientId: mongoose.Types.ObjectId) => {
   const patient = await Patient.findOneAndDelete({ _id: patientId })
 
   return patient
@@ -85,6 +87,22 @@ export const deletePatient = async (patientId:mongoose.Types.ObjectId) => {
  */
 export const updatePatient = async (patientId: mongoose.Types.ObjectId, updatePatientInput:CreatePatientObjectType) => {
   const patient = Patient.findByIdAndUpdate(patientId, updatePatientInput, { returnDocument: 'after' })
-
   return patient
+}
+
+export const linkSupervisor = async (
+  supervisorID: mongoose.Types.ObjectId,
+  patientID: mongoose.Types.ObjectId
+) => {
+  const patient = await Patient.findById(
+    new mongoose.Types.ObjectId(patientID)
+  )
+  if (patient?.supervisors) {
+    patient.supervisors.push(supervisorID)
+    const res = await patient.save()
+
+    return res
+  } else {
+    return 'Patient not found'
+  }
 }

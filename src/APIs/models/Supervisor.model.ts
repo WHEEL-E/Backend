@@ -1,5 +1,6 @@
 import SupervisiorModel from '../schema/Supervisior.schema'
 import { SupervisorObjectType } from '../types/Supervisor.type'
+import mongoose from 'mongoose'
 
 export const createSupervisior = async (
   supervisorDate: SupervisorObjectType
@@ -52,4 +53,18 @@ export const filterSupervisorsByName = async (name: string) => {
   })
 
   return supervisors
+}
+
+export const linkPatient = async (
+  supervisorID: mongoose.Types.ObjectId,
+  patientID: mongoose.Types.ObjectId
+) => {
+  const supervisor = await SupervisiorModel.findById(
+    new mongoose.Types.ObjectId(supervisorID)
+  )
+
+  supervisor.associated_patients.push(patientID)
+  const res = await supervisor.save()
+
+  return res
 }
