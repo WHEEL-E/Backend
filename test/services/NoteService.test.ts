@@ -4,10 +4,14 @@ import * as dbHandler from '../utilities/dbHandler'
 import { CreateNoteObjectType, UpdateNoteObjectType } from '../../src/APIs/types/Note.type'
 import { createNote } from '../utilities/seed'
 import mongoose from 'mongoose'
+
 describe('Testing Note Service', () => {
+  let noteId1 : mongoose.Types.ObjectId, noteId2 : mongoose.Types.ObjectId
   beforeAll(async () => await dbHandler.connect())
   beforeEach(async () => {
-    await createNote()
+    const result = await createNote()
+    noteId1 = result[0]
+    noteId2 = result[1]
   })
 
   afterEach(async () => await dbHandler.clearDatabase())
@@ -32,66 +36,32 @@ describe('Testing Note Service', () => {
   })
 
   test('Get note', async () => {
-    const noteInput:CreateNoteObjectType = {
-      userId: '6263ce0577164ec6745e3bd7',
-      title: 'Hello',
-      description: 'world!'
-    }
-    const { _id } = await NoteService.createNote(noteInput)
-    if (!_id) {
-      // search about error handling in tests
-      return
-    }
-    const note = await NoteService.getNote(_id)
+    const note = await NoteService.getNote(noteId1)
     if (!note) {
-      // search about error handling in tests
-      return
+      throw new Error('Note not found')
     }
     expect(note.title).toBe('Hello')
   })
 
   test('Update note', async () => {
-    const noteInput:CreateNoteObjectType = {
-      userId: '6263ce0577164ec6745e3bd7',
-      title: 'Hello',
-      description: 'world!'
-    }
-    const { _id } = await NoteService.createNote(noteInput)
-    if (!_id) {
-      // search about error handling in tests
-      return
-    }
     const noteUpdateInput: UpdateNoteObjectType = {
-      noteId: new mongoose.Types.ObjectId('6263ce0577164ec6745e3bd7'),
+      noteId: noteId1,
       title: 'Updated',
       description: 'world!'
     }
     const note = await NoteService.updateNote(noteUpdateInput)
     if (!note) {
-      // search about error handling in tests
-      return
+      throw new Error('Can not update the note')
     }
     expect(note.title).toBe('Updated')
   })
 
   test('Delete note', async () => {
-    const noteInput:CreateNoteObjectType = {
-      userId: '6263ce0577164ec6745e3bd7',
-      title: 'Hello',
-      description: 'world!'
-    }
-    const { _id } = await NoteService.createNote(noteInput)
-    if (!_id) {
-      // search about error handling in tests
-      return
-    }
-
-    const note = await NoteService.deleteNote(_id)
+    const note = await NoteService.deleteNote(noteId2)
     if (!note) {
-      // search about error handling in tests
-      return
+      throw new Error('Can not delete note')
     }
 
-    expect(note._id).toEqual(_id)
+    expect(note._id).toEqual(noteId2)
   })
 })

@@ -3,8 +3,8 @@ import { CreateReminderObjectType, UpdateReminderObjectType } from '../types/Rem
 import { UnprocessableError } from '../types/general.types'
 import mongoose from 'mongoose'
 
-export const getAllRemindersByPatientId = (userId: mongoose.Types.ObjectId) => {
-  const reminders = RemindersModel.getAllRemindersByPatientId(userId)
+export const getAllRemindersByPatientId = (patientId: mongoose.Types.ObjectId) => {
+  const reminders = RemindersModel.getAllRemindersByPatientId(patientId)
   if (!reminders) {
     throw new UnprocessableError('Could not fetch reminders using patientId')
   }
@@ -12,8 +12,8 @@ export const getAllRemindersByPatientId = (userId: mongoose.Types.ObjectId) => {
   return reminders
 }
 
-export const getAllRemindersBySupervisorId = (userId: mongoose.Types.ObjectId) => {
-  const reminders = RemindersModel.getAllRemindersBySupervisorId(userId)
+export const getAllRemindersBySupervisorId = (supervisorId: mongoose.Types.ObjectId) => {
+  const reminders = RemindersModel.getAllRemindersBySupervisorId(supervisorId)
   if (!reminders) {
     throw new UnprocessableError('Could not fetch reminders using supervisorId')
   }
