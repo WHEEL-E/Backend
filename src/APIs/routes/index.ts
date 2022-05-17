@@ -1,5 +1,5 @@
 import InvitationRoutes from './Invitations.route'
-import LoginRoutes from './LoginRoutes.route'
+import LoginRoutes from './UserRoutes.route'
 import NotesRoutes from './NotesRoutes.route'
 import NotificationRoutes from './Notifications.route'
 import PatientsRoutes from './PatientRoutes.route'
