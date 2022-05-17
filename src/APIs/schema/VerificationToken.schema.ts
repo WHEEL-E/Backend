@@ -4,7 +4,8 @@ const VerificationTokenSchema = new mongoose.Schema(
   {
     user_id: {
       type: mongoose.Types.ObjectId,
-      required: true
+      required: true,
+      unique: true
     },
     token: {
       type: String,

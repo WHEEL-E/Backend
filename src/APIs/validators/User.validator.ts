@@ -38,3 +38,19 @@ export const validateVerifyMailInput = [
     validateResults(req, res, next)
   }
 ]
+
+export const validateResendMailInput = [
+  body('id')
+    .isString()
+    .exists()
+    .withMessage("Insuffecient parameters. 'User ID' is required"),
+
+  body('email')
+    .isString()
+    .exists()
+    .withMessage("Insuffecient parameters. 'User Mail' is required"),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    validateResults(req, res, next)
+  }
+]

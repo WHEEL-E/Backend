@@ -1,4 +1,4 @@
-import * as VerifiicationMailModel from '../models/VerificationTokens.model'
+import * as VerificationMailModel from '../models/VerificationTokens.model'
 import * as jwt from 'jsonwebtoken'
 import { USER_ROLES } from '../types/User.types'
 import { UnprocessableError } from '../types/general.types'
@@ -8,19 +8,26 @@ import mongoose from 'mongoose'
 import { updateSupervisorVerificationStatus } from '../models/Supervisor.model'
 import { updateVerificationStatus } from '../models/Patient.model'
 
-export const sendVerificationMail = async (
-  email: string,
-  id: mongoose.Types.ObjectId
-) => {
+const generateToken = async (id: mongoose.Types.ObjectId, email: string) => {
   const verficationToken = await jwt.sign(
     { data: { id: id, user_email: email, tag: 'VerficationToken' } },
     'My_SECRET',
     { expiresIn: '2h' }
   )
 
-  await VerifiicationMailModel.createVerificationToken(id, verficationToken)
+  await VerificationMailModel.createVerificationToken(id, verficationToken)
 
+  return verficationToken
+}
+
+export const sendVerificationMail = async (
+  email: string,
+  id: mongoose.Types.ObjectId
+) => {
+  const token = await generateToken(id, email)
+  console.log(token)
   // Call Emailing Service
+  // Return Token to the front end
 }
 
 export const verifyMail = async (
@@ -34,13 +41,13 @@ export const verifyMail = async (
       `${userType} was not found, please provide valid id`
     )
   }
-  const verificationToken = await VerifiicationMailModel.findToken(id, token)
+  const verificationToken = await VerificationMailModel.findToken(id, token)
   if (!verificationToken) {
     throw new UnprocessableError('Invalid Token')
   }
 
   const updatedUser = await UserVariations(id, userType, 'update')
-  await VerifiicationMailModel.removeToken(verificationToken._id)
+  await VerificationMailModel.removeToken(verificationToken._id)
 
   return updatedUser
 }
@@ -69,4 +76,21 @@ const UserVariations = async (
   }
 
   return user
+}
+
+export const resendVerificationMail = async (
+  id: mongoose.Types.ObjectId,
+  email: string
+) => {
+  const verificationToken = await VerificationMailModel.findTokenByUserID(id)
+  if (verificationToken) {
+    // Call Sending Mail Service Here
+    // Return Token to the front end
+  }
+
+  const newToken = await generateToken(id, email)
+  console.log(newToken)
+
+  // Call Emailing Service
+  // Return Token to the front end
 }
