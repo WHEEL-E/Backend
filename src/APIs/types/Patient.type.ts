@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+
 export interface IPatientModel{
       name: string
       email: string
@@ -11,6 +13,7 @@ export interface IPatientModel{
       dob: Date
       smoking?: boolean
       chair_serial_id?: string
+      supervisors? : [mongoose.Types.ObjectId]
       // Commented until we know how we're going to store them effeciently
       // profile_picture: string
       // medical_history: string

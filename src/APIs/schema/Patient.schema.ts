@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose'
+import mongoose, { Schema, model } from 'mongoose'
 import { IPatientModel } from '../types/Patient.type'
 // Patient ID is generated dynamically by the db
 const PatientSchema = new Schema<IPatientModel>({
@@ -51,6 +51,10 @@ const PatientSchema = new Schema<IPatientModel>({
   },
   chair_serial_id: {
     type: String
+  },
+  supervisors: {
+    type: [{ type: mongoose.Types.ObjectId, ref: 'Supervisor', default: [] }],
+    default: []
   }
   // profile_picture: {},
   // medical_history: {}

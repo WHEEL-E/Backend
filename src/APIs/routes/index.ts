@@ -1,3 +1,4 @@
+import InvitationRoutes from './Invitations.route'
 import LoginRoutes from './LoginRoutes.route'
 import NotesRoutes from './NotesRoutes.route'
 import NotificationRoutes from './Notifications.route'
@@ -34,5 +35,6 @@ router.use('/supervisor', SupervisorRoutes)
 router.use('/notes', NotesRoutes)
 router.use('/reminders', RemindersRoutes)
 router.use('/patients', PatientsRoutes)
+router.use('/invitations', InvitationRoutes)
 
 export default router
