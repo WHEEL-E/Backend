@@ -5,8 +5,9 @@ import { CreateNoteObjectType } from '../../src/APIs/types/Note.type'
 import { CreatePatientObjectType } from '../../src/APIs/types/Patient.type'
 import { CreateReminderObjectType } from '../../src/APIs/types/Reminder.type'
 import mongoose from 'mongoose'
+import { UnprocessableError } from '../../src/APIs/types/general.types'
 
-export const createNote = async () => {
+export const createNote = async ():Promise<mongoose.Types.ObjectId[]> => {
   const note:CreateNoteObjectType = {
     userId: '6263ce0577164ec6745e3bd7',
     title: 'Hello',
@@ -17,8 +18,15 @@ export const createNote = async () => {
     title: 'Hello2',
     description: 'world2!'
   }
-  await NoteModel.createNote(note)
-  await NoteModel.createNote(note2)
+
+  const { _id: noteId1 } = await NoteModel.createNote(note)
+  const { _id: noteId2 } = await NoteModel.createNote(note2)
+
+  if (!noteId1 || !noteId2) {
+    throw new UnprocessableError('Can not intialize the notes in db for testing')
+  }
+
+  return [noteId1, noteId2]
 }
 
 export const createReminder = async () => {
@@ -36,8 +44,15 @@ export const createReminder = async () => {
     description: 'Life',
     due_date: new Date('2022-5-22')
   }
-  await ReminderModel.createReminder(reminder)
-  await ReminderModel.createReminder(reminder1)
+
+  const { _id: remId1 } = await ReminderModel.createReminder(reminder)
+  const { _id: remdId2 } = await ReminderModel.createReminder(reminder1)
+
+  if (!remId1 || !remdId2) {
+    throw new UnprocessableError('Can not intialize the notes in db for testing')
+  }
+
+  return [remId1, remdId2]
 }
 
 export const createPatient = async () => {
@@ -68,6 +83,8 @@ export const createPatient = async () => {
     weight: 55
   }
 
-  await PatientModel.createPatient(patient)
-  await PatientModel.createPatient(patient1)
+  const { _id: patientId1 } = await PatientModel.createPatient(patient)
+  const { _id: patientId2 } = await PatientModel.createPatient(patient1)
+
+  return [patientId1, patientId2]
 }
