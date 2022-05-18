@@ -55,8 +55,10 @@ const PatientSchema = new Schema<IPatientModel>({
   supervisors: {
     type: [{ type: mongoose.Types.ObjectId, ref: 'Supervisor', default: [] }],
     default: []
+  },
+  profile_picture: {
+    type: String
   }
-  // profile_picture: {},
   // medical_history: {}
 })
 

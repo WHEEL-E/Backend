@@ -11,13 +11,13 @@ import express from 'express'
 const router = express.Router()
 
 export const handler = async ({
-  req: { params, body, query, headers },
+  req: { params, body, query, headers, file },
   res,
   next,
   fn
 }: RouterHandlerInput) => {
   try {
-    const data = await fn({ params, body, query, headers })
+    const data = await fn({ params, body, query, headers, file })
     res.status(200).json({
       message: data.message,
       data: data.response,

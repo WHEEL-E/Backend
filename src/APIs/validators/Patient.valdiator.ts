@@ -18,12 +18,12 @@ body('password')
   .withMessage("Insuffecient parameters. Invalid 'password' is required"),
 
 body('phone')
-  .isNumeric()
+  .isString()
   .exists()
   .withMessage("Insuffecient parameters. Invalid 'phone' is required"),
 
 body('emergency_number')
-  .isNumeric()
+  .isString()
   .exists()
   .withMessage("Insuffecient parameters. Invalid 'emergency_number' is required"),
 
@@ -38,12 +38,12 @@ body('gender')
   .withMessage("Insuffecient parameters. Invalid 'gender' is required"),
 
 body('weight')
-  .isNumeric()
+  .isString()
   .exists()
   .withMessage("Insuffecient parameters. Invalid 'weight' is required"),
 
 body('height')
-  .isNumeric()
+  .isString()
   .exists()
   .withMessage("Insuffecient parameters. Invalid 'height' is required"),
 
@@ -53,7 +53,7 @@ body('dob')
   .withMessage("Insuffecient parameters. Invalid 'dob' is required"),
 
 body('smoking')
-  .isBoolean()
+  .isString()
   .exists()
   .withMessage("Insuffecient parameters. Invalid 'smoking' is required"),
 (req: Request, res: Response, next: NextFunction) => {

@@ -13,9 +13,8 @@ export interface IPatientModel{
       dob: Date
       smoking?: boolean
       chair_serial_id?: string
-      supervisors? : [mongoose.Types.ObjectId]
-      // Commented until we know how we're going to store them effeciently
-      // profile_picture: string
+      supervisors? : [mongoose.Types.ObjectId],
+      profile_picture?: string
       // medical_history: string
 }
 
@@ -30,5 +29,6 @@ export type CreatePatientObjectType = {
   weight:number
   height:number
   dob:Date
-  smoking:boolean
+  smoking:boolean,
+  profile_picture?:string
 }

@@ -32,8 +32,23 @@ export const getPatient: RequestHandler = async ({ params }) => {
   }
 }
 
-export const createPatient: RequestHandler = async ({ body }) => {
-  const response = await PatientsServices.createPatient(body)
+export const createPatient: RequestHandler = async ({ body, file }) => {
+  const patientInfo: CreatePatientObjectType = {
+    patient_name: body.patient_name,
+    email: body.email,
+    password: body.password,
+    phone: Number(body.phone),
+    emergency_number: Number(body.emergency_number),
+    dob: new Date(body.dob),
+    address: body.address,
+    gender: body.gender,
+    height: Number(body.height),
+    weight: Number(body.weight),
+    smoking: Boolean(body.smoking)
+  }
+  // @ts-ignore
+  const profilePictureFileId = file.id
+  const response = await PatientsServices.createPatient(patientInfo, profilePictureFileId)
 
   return {
     response: response,
@@ -64,7 +79,8 @@ export const updatePatient: RequestHandler = async ({ body, params }) => {
     password: body.password,
     phone: body.phone,
     smoking: body.smoking,
-    weight: body.weight
+    weight: body.weight,
+    profile_picture: body.profile_picture
   }
 
   const response = await PatientsServices.updatePatient(patientId, updatePatientInput)

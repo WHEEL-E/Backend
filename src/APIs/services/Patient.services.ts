@@ -34,13 +34,15 @@ export const getPatient = (patientId: mongoose.Types.ObjectId) => {
 }
 
 export const createPatient = async (
-  createPatientInput: CreatePatientObjectType
+  createPatientInput: CreatePatientObjectType,
+  profilePictureFileId: string
 ) => {
+  // password-wise
   const hashedPass = await bcrypt.hash(createPatientInput.password, 10)
-
   const response = await PatientModel.createPatient({
     ...createPatientInput,
-    password: hashedPass
+    password: hashedPass,
+    profile_picture: profilePictureFileId
   })
 
   return response

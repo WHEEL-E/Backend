@@ -63,7 +63,8 @@ export const createPatient = async (patientInput: CreatePatientObjectType) => {
     weight: patientInput.weight,
     height: patientInput.height,
     dob: patientInput.dob,
-    smoking: patientInput.smoking
+    smoking: patientInput.smoking,
+    profile_picture: patientInput.profile_picture
   })
 
   return response

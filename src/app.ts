@@ -9,7 +9,7 @@ import cors from 'cors'
 const app: Application = express()
 const port: number = 3000
 
-require('./APIs/config/database_config')()
+export const database = require('./APIs/config/database_config')()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
