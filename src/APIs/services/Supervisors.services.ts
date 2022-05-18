@@ -4,12 +4,14 @@ import { UnprocessableError } from '../types/general.types'
 import bcrypt from 'bcrypt'
 
 export const createSupervisor = async (
-  supervisorData: SupervisorObjectType
+  supervisorData: SupervisorObjectType,
+  profilePictureFileId: string
 ) => {
   const hashedPass = await bcrypt.hash(supervisorData.password, 10)
   const response = SupervisorModel.createSupervisior({
     ...supervisorData,
-    password: hashedPass
+    password: hashedPass,
+    profile_picture: profilePictureFileId
   })
 
   return response

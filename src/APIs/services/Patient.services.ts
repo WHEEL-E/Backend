@@ -37,7 +37,6 @@ export const createPatient = async (
   createPatientInput: CreatePatientObjectType,
   profilePictureFileId: string
 ) => {
-  // password-wise
   const hashedPass = await bcrypt.hash(createPatientInput.password, 10)
   const response = await PatientModel.createPatient({
     ...createPatientInput,

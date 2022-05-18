@@ -33,6 +33,7 @@ export const getPatient: RequestHandler = async ({ params }) => {
 }
 
 export const createPatient: RequestHandler = async ({ body, file }) => {
+  let profilePictureFileId
   const patientInfo: CreatePatientObjectType = {
     patient_name: body.patient_name,
     email: body.email,
@@ -47,7 +48,11 @@ export const createPatient: RequestHandler = async ({ body, file }) => {
     smoking: Boolean(body.smoking)
   }
   // @ts-ignore
-  const profilePictureFileId = file.id
+  if (file.id === undefined) {
+    profilePictureFileId = ''
+  }
+  // @ts-ignore
+  profilePictureFileId = file.id
   const response = await PatientsServices.createPatient(patientInfo, profilePictureFileId)
 
   return {

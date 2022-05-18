@@ -1,8 +1,15 @@
 import * as SupervisorServices from '../services/Supervisors.services'
 import { RequestHandler } from 'express'
 
-export const supervisiorSignUp: RequestHandler = async ({ body }) => {
-  const supervisor = await SupervisorServices.createSupervisor(body)
+export const supervisiorSignUp: RequestHandler = async ({ body, file }) => {
+  let profilePictureFileId
+  // @ts-ignore becasue property id doesn't exist on type file as it's not supported by docs
+  if (file.id === undefined) {
+    profilePictureFileId = ''
+  }
+  // @ts-ignore
+  profilePictureFileId = file.id
+  const supervisor = await SupervisorServices.createSupervisor(body, profilePictureFileId)
 
   return {
     response: supervisor,

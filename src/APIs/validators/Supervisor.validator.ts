@@ -25,7 +25,7 @@ export const validateSupervisorCreation = [
     .withMessage("Insuffecient parameters. Invalid 'password' is required"),
 
   body('phone')
-    .isNumeric()
+    .isString()
     .isMobilePhone('any')
     .withMessage("Insuffecient parameters. 'phone' is Invalid")
     .exists()
@@ -35,12 +35,6 @@ export const validateSupervisorCreation = [
     .isString()
     .exists()
     .withMessage("Insuffecient parameters. 'gender' is required"),
-  // Temp check till implement file upload
-  body('profile_picture')
-    .isString()
-    .exists()
-    .withMessage("Insuffecient parameters. 'phone' is required"),
-
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)
   }
