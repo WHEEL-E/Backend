@@ -62,3 +62,12 @@ export const filterSupervisorsByName: RequestHandler = async ({ query }) => {
     message: "Supervisors's data Successfully Fetched"
   }
 }
+
+export const getSupervisorProfilePicture: RequestHandler = async ({ params, res }) => {
+  const response = await SupervisorServices.getSupervisorProfilePicture(params.id, res)
+
+  return {
+    response,
+    message: "Supervisor's profile picture Successfully Fetched"
+  }
+}

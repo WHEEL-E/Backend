@@ -1,3 +1,4 @@
+import * as FileModel from '../models/Files.model'
 import * as PatientModel from '../models/Patient.model'
 import { CreatePatientObjectType } from '../types/Patient.type'
 import { UnprocessableError } from '../types/general.types'
@@ -67,4 +68,19 @@ export const updatePatient = (
   }
 
   return patient
+}
+
+// @ts-ignore  will be deleted later after we agree upon using res to store the image data
+export const getPatientProfilePicture = async (patientId:string, res) => {
+  const patientID = new mongoose.Types.ObjectId(patientId)
+  const patient = await PatientModel.getPatient(patientID)
+  if (!patient) {
+    throw new UnprocessableError('Patient not found')
+  }
+
+  const { profile_picture } = patient
+  // refactor the ! later
+  const imageFile = FileModel.getProfilePicture(profile_picture!, res)
+
+  return imageFile
 }

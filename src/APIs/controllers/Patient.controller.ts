@@ -95,3 +95,12 @@ export const updatePatient: RequestHandler = async ({ body, params }) => {
     message: 'Patient updated successfully'
   }
 }
+
+export const getPatientProfilePicture: RequestHandler = async ({ params, res }) => {
+  const response = await PatientsServices.getPatientProfilePicture(params.id, res)
+
+  return {
+    response,
+    message: "Patients's profile picture Successfully Fetched"
+  }
+}

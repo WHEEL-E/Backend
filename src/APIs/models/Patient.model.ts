@@ -18,7 +18,7 @@ export const getAllPatientsBySupervisorId = async (
  * @returns all patients data
  */
 export const getAllPatients = async () => {
-  const patients = Patient.find()
+  const patients = await Patient.find()
 
   return patients
 }
@@ -29,7 +29,7 @@ export const getAllPatients = async () => {
  * @returns patient data
  */
 export const getPatient = async (patientId: mongoose.Types.ObjectId) => {
-  const patient = Patient.findById(patientId)
+  const patient = await Patient.findById(patientId)
 
   return patient
 }

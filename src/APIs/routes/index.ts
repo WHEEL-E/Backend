@@ -17,7 +17,7 @@ export const handler = async ({
   fn
 }: RouterHandlerInput) => {
   try {
-    const data = await fn({ params, body, query, headers, file })
+    const data = await fn({ params, body, query, headers, file, res })
     res.status(200).json({
       message: data.message,
       data: data.response,

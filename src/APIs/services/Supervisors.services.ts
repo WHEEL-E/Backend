@@ -1,3 +1,4 @@
+import * as FileModel from '../models/Files.model'
 import * as SupervisorModel from '../models/Supervisor.model'
 import { SupervisorObjectType } from '../types/Supervisor.type'
 import { UnprocessableError } from '../types/general.types'
@@ -55,3 +56,16 @@ export const getSupervisorById = async (supervisorId: string) => {
 
 export const filterSupervisorsByName = async (name: string) =>
   SupervisorModel.filterSupervisorsByName(name)
+
+// @ts-ignore  will be deleted later after we agree upon using res to store the image data
+export const getSupervisorProfilePicture = async (supervisorId:string, res) => {
+  const supervisor = await SupervisorModel.getSupervisorById(supervisorId)
+  if (!supervisor) {
+    throw new UnprocessableError('Supervisor not found')
+  }
+
+  const { profile_picture } = supervisor
+  const imageFile = FileModel.getProfilePicture(profile_picture, res)
+
+  return imageFile
+}

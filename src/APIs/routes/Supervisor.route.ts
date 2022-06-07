@@ -10,6 +10,12 @@ router.get('/search', (req: Request, res: Response, next: NextFunction) =>
   handler({ req, res, next, fn: SupervisorController.filterSupervisorsByName })
 )
 
+router.get('/photos/:id',
+  SupervisorValidator.validateSupervisorID,
+  (req: Request, res: Response, next: NextFunction) =>
+    handler({ req, res, next, fn: SupervisorController.getSupervisorProfilePicture })
+)
+
 router.get(
   '/:id',
   SupervisorValidator.validateSupervisorID,

@@ -13,7 +13,7 @@ const photoStorage = new GridFsStorage({
     if (match.indexOf(file.mimetype) === -1) {
       const filename = `${Date.now()}-wheele-patient`
       req.body.filename = filename
-      console.log('filename is safely in res locals', req.body.filename)
+      // console.log('filename is safely in res locals', req.body.filename)
 
       return filename
     }
