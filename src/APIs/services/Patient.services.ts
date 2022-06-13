@@ -84,3 +84,15 @@ export const getPatientProfilePicture = async (patientId:string, res) => {
 
   return imageFile
 }
+
+export const uploadHealthRecord = (
+  patientId: mongoose.Types.ObjectId,
+  healthRecord: string
+) => {
+  const patient = PatientModel.uploadHealthRecord(patientId, healthRecord)
+  if (!patient) {
+    throw new UnprocessableError('Could not add health record to the patient profile')
+  }
+
+  return patient
+}
