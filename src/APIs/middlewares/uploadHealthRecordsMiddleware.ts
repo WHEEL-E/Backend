@@ -8,7 +8,7 @@ const healthRecordsStorage = new GridFsStorage({
   url: config.get('db') + database,
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
-    const match = ['file/txt', 'file/csv']
+    const match = ['file/txt', 'file/csv', 'file/pdf']
     if (match.indexOf(file.mimetype) === -1) {
       const filename = `${Date.now()}-wheele-health-record`
       req.body.filename = filename
