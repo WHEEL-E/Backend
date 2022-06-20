@@ -28,6 +28,14 @@ router.get(
   }
 )
 
+router.get(
+  '/healthFiles/:id',
+  validatePatientId,
+  (req: Request, res: Response, next: NextFunction) => {
+    handler({ req, res, next, fn: PatientController.getPatientHealthRecords })
+  }
+)
+
 router.post(
   '/',
   uploadPhotosMiddleware,
