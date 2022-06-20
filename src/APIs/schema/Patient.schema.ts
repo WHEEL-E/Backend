@@ -1,6 +1,6 @@
 import mongoose, { Schema, model } from 'mongoose'
 import { IPatientModel } from '../types/Patient.type'
-// Patient ID is generated dynamically by the db
+
 const PatientSchema = new Schema<IPatientModel>({
   name: {
     type: String,
@@ -44,7 +44,6 @@ const PatientSchema = new Schema<IPatientModel>({
   },
   weight: { type: Number },
   height: { type: Number },
-  // instead of age attribute
   dob: { type: Date, required: true },
   smoking: {
     type: Boolean
@@ -58,8 +57,8 @@ const PatientSchema = new Schema<IPatientModel>({
   },
   profile_picture: {
     type: String
-  }
-  // medical_history: {}
+  },
+  medical_history: [{ type: String }]
 })
 
 const Patient = model('Patient', PatientSchema)

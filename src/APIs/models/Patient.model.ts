@@ -54,7 +54,6 @@ export const createPatient = async (patientInput: CreatePatientObjectType) => {
   const response = await Patient.create({
     name: patientInput.patient_name,
     email: patientInput.email,
-    // will add hashing in auth PRs
     password: patientInput.password,
     phone: patientInput.phone,
     emergency_number: patientInput.emergency_number,
@@ -109,5 +108,25 @@ export const linkSupervisor = async (
     return res
   } else {
     return 'Patient not found'
+  }
+}
+
+/**
+ *
+ * @param patientId
+ * @param healthRecord
+ * @returns the updated patient record
+ */
+export const uploadHealthRecord = async (
+  patientId: mongoose.Types.ObjectId,
+  healthRecord: string
+) => {
+  const patient = await Patient.findById(patientId)
+
+  if (patient?.medical_history) {
+    patient.medical_history.push(healthRecord)
+    const res = await patient.save()
+
+    return res
   }
 }

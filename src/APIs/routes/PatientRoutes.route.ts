@@ -2,6 +2,7 @@ import * as PatientController from '../controllers/Patient.controller'
 import express, { NextFunction, Request, Response } from 'express'
 import { validatePatientCreation, validatePatientDeletion, validatePatientId, validateSupervisorId } from '../validators/Patient.valdiator'
 import { handler } from '.'
+import uploadHealthRecordsStorage from '../middlewares/uploadHealthRecordsMiddleware'
 import uploadPhotosMiddleware from '../middlewares/uploadPhotosMiddleware'
 
 const router = express.Router()
@@ -27,6 +28,14 @@ router.get(
   }
 )
 
+router.get(
+  '/healthFiles/:id',
+  validatePatientId,
+  (req: Request, res: Response, next: NextFunction) => {
+    handler({ req, res, next, fn: PatientController.getPatientHealthRecords })
+  }
+)
+
 router.post(
   '/',
   uploadPhotosMiddleware,
@@ -35,6 +44,16 @@ router.post(
     handler({ req, res, next, fn: PatientController.createPatient })
   }
 )
+
+router.post(
+  '/healthFiles/:id',
+  uploadHealthRecordsStorage,
+  validatePatientId,
+  (req: Request, res: Response, next: NextFunction) => {
+    handler({ req, res, next, fn: PatientController.uploadHealthRecord })
+  }
+)
+
 router.delete(
   '/:id',
   validatePatientDeletion,

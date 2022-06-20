@@ -101,6 +101,33 @@ export const getPatientProfilePicture: RequestHandler = async ({ params, res }) 
 
   return {
     response,
-    message: "Patients's profile picture Successfully Fetched"
+    message: "Patients's profile picture successfully fetched"
+  }
+}
+
+export const getPatientHealthRecords: RequestHandler = async ({ params }) => {
+  const patientId = new mongoose.Types.ObjectId(params.id)
+  const response = await PatientsServices.getPatientHealthRecords(patientId)
+
+  return {
+    response,
+    message: "Patients's health records successfully fetched"
+  }
+}
+
+export const uploadHealthRecord: RequestHandler = async ({ params, file }) => {
+  let fileHealthRecord
+  const patientId = new mongoose.Types.ObjectId(params.id)
+  // @ts-ignore
+  if (file.id === undefined) {
+    fileHealthRecord = ''
+  }
+  // @ts-ignore
+  fileHealthRecord = file.id
+  const response = await PatientsServices.uploadHealthRecord(patientId, fileHealthRecord)
+
+  return {
+    response,
+    message: "Patients's Health Record Was Added Successfully"
   }
 }
