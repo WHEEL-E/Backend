@@ -91,8 +91,7 @@ export const updatePatient = (
   return patient
 }
 
-// @ts-ignore  will be deleted later after we agree upon using res to store the image data
-export const getPatientProfilePicture = async (patientId:string, res) => {
+export const getPatientProfilePicture = async (patientId:string) => {
   const patientID = new mongoose.Types.ObjectId(patientId)
   const patient = await PatientModel.getPatient(patientID)
   if (!patient) {
@@ -100,8 +99,11 @@ export const getPatientProfilePicture = async (patientId:string, res) => {
   }
 
   const { profile_picture } = patient
-  // refactor the ! later
-  const imageFile = FileModel.getProfilePicture(profile_picture!, res)
+  if (!profile_picture) {
+    throw new UnprocessableError('Patient does not have a profile picture')
+  }
+
+  const imageFile = FileModel.getProfilePicture(profile_picture)
 
   return imageFile
 }

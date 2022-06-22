@@ -63,8 +63,8 @@ export const filterSupervisorsByName: RequestHandler = async ({ query }) => {
   }
 }
 
-export const getSupervisorProfilePicture: RequestHandler = async ({ params, res }) => {
-  const response = await SupervisorServices.getSupervisorProfilePicture(params.id, res)
+export const getSupervisorProfilePicture: RequestHandler = async ({ params }) => {
+  const response = await SupervisorServices.getSupervisorProfilePicture(params.id)
 
   return {
     response,

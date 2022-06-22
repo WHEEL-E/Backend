@@ -96,8 +96,8 @@ export const updatePatient: RequestHandler = async ({ body, params }) => {
   }
 }
 
-export const getPatientProfilePicture: RequestHandler = async ({ params, res }) => {
-  const response = await PatientsServices.getPatientProfilePicture(params.id, res)
+export const getPatientProfilePicture: RequestHandler = async ({ params }) => {
+  const response = await PatientsServices.getPatientProfilePicture(params.id)
 
   return {
     response,
