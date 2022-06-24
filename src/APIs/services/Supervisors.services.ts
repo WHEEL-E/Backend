@@ -1,7 +1,7 @@
 import * as SupervisorModel from '../models/Supervisor.model'
 import { SupervisorObjectType } from '../types/Supervisor.type'
 import { UnprocessableError } from '../types/general.types'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 export const createSupervisor = async (
   supervisorData: SupervisorObjectType
