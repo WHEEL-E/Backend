@@ -38,7 +38,7 @@ export const getProfilePicture = async (profilePictureId: string) => {
   }
 }
 
-export const getHealthRecord = async (fileId: string) => {
+export const getMedicalRecord = async (fileId: string) => {
   const db = mongoose.connection.useDb('testundefined').db
   const collection = db.collection('fs.files')
   const collectionChunks = db.collection('fs.chunks')

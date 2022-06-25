@@ -117,14 +117,14 @@ export const linkSupervisor = async (
  * @param healthRecord
  * @returns the updated patient record
  */
-export const uploadHealthRecord = async (
+export const uploadMedicalRecord = async (
   patientId: mongoose.Types.ObjectId,
-  healthRecord: string
+  medicalRecord: string
 ) => {
   const patient = await Patient.findById(patientId)
 
   if (patient?.medical_history) {
-    patient.medical_history.push(healthRecord)
+    patient.medical_history.push(medicalRecord)
     const res = await patient.save()
 
     return res
