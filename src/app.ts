@@ -17,7 +17,7 @@ const app: Application = express()
 const port = process.env.PORT
 const host = process.env.HOST
 
-require('./APIs/config/database_config')()
+export const database = require('./APIs/config/database_config')()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
