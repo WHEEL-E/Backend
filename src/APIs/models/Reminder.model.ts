@@ -42,7 +42,7 @@ export const getReminder = async (reminderId: mongoose.Types.ObjectId) => {
  */
 export const createReminder = async (reminderInput: CreateReminderObjectType) => {
   const reminder = await Reminder.create({
-    patient_id: new mongoose.Types.ObjectId(reminderInput.patient_Id),
+    patient_id: new mongoose.Types.ObjectId(reminderInput.patient_id),
     supervisor_id: new mongoose.Types.ObjectId(reminderInput.supervisor_id),
     due_date: new Date(reminderInput.due_date),
     title: reminderInput.title,
