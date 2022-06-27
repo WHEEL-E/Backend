@@ -38,7 +38,8 @@ export const resendVerificationMailController: RequestHandler = async ({
 }) => {
   const response = await resendVerificationMail(
     new mongoose.Types.ObjectId(body.id),
-    body.email
+    body.email,
+    body.userName || undefined
   )
 
   return {

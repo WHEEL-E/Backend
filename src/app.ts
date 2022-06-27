@@ -5,9 +5,22 @@ import {
 import express, { Application } from 'express'
 import Routes from './APIs/routes/index'
 import cors from 'cors'
+import { sendMail } from './APIs/services/SendingMail.services'
 
 const app: Application = express()
 const port: number = 3000
+
+const test = async () => {
+  const data = await sendMail({
+    userMail: ['mh249688@yahoo.com'],
+    mailBody: 'Testing Mail Body',
+    subject: 'Testing Mail',
+    userName: 'Mohammed Hassan'
+  })
+  console.log(data)
+}
+
+test()
 
 require('./APIs/config/database_config')()
 

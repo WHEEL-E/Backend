@@ -5,6 +5,7 @@ import { UnprocessableError } from '../types/general.types'
 import { getPatient } from './Patient.services'
 import { getSupervisorById } from './Supervisors.services'
 import mongoose from 'mongoose'
+import { sendMail } from './SendingMail.services'
 import { updateSupervisorVerificationStatus } from '../models/Supervisor.model'
 import { updateVerificationStatus } from '../models/Patient.model'
 
@@ -22,12 +23,18 @@ const generateToken = async (id: mongoose.Types.ObjectId, email: string) => {
 
 export const sendVerificationMail = async (
   email: string,
-  id: mongoose.Types.ObjectId
+  id: mongoose.Types.ObjectId,
+  userName: string | undefined
 ) => {
   const token = await generateToken(id, email)
-  console.log(token)
-  // Call Emailing Service
-  // Return Token to the front end
+  const data = await sendMail({
+    userMail: [email],
+    subject: 'Verification Mail',
+    userName: userName || 'My Friend',
+    mailBody: `Please Open this link to Verify you appliction, ${token}`
+  })
+
+  return { token, data }
 }
 
 export const verifyMail = async (
@@ -80,17 +87,30 @@ const UserVariations = async (
 
 export const resendVerificationMail = async (
   id: mongoose.Types.ObjectId,
-  email: string
+  email: string,
+  userName: string | undefined
 ) => {
   const verificationToken = await VerificationMailModel.findTokenByUserID(id)
   if (verificationToken) {
-    // Call Sending Mail Service Here
-    // Return Token to the front end
+    const data = await sendMail({
+      userMail: [email],
+      subject: 'Verification Mail',
+      userName: userName || 'My Friend',
+      mailBody: `Please Open this link to Verify you appliction, ${verificationToken}`
+    })
+
+    return { verificationToken, data }
   }
 
   const newToken = await generateToken(id, email)
   console.log(newToken)
 
-  // Call Emailing Service
-  // Return Token to the front end
+  const data = await sendMail({
+    userMail: [email],
+    subject: 'Verification Mail',
+    userName: userName || 'My Friend',
+    mailBody: `Please Open this link to Verify you appliction, ${newToken}`
+  })
+
+  return { newToken, data }
 }

@@ -1,24 +1,24 @@
-import nodemailer from 'nodemailer'
-import nodemailerSendgrid from 'nodemailer-sendgrid'
+import AWS from './HelperFunctions/AWSConnection'
+import { MailObject } from '../types/sendingMail.types'
+import { SES } from 'aws-sdk'
+import generateMailTempelate from './HelperFunctions/generateMailTempelate'
 
-const transporter = nodemailer.createTransport(
-  nodemailerSendgrid({
-    apiKey: process.env.SENDGRID_API_KEY as string
-  })
-)
+const SESInstance = new AWS.SES({ apiVersion: '2010-12-01' })
 
-export const sendMail = async (
-  userMail: string,
-  subject: string,
-  message: string,
-  Url: string
-) => {
-  const response = await transporter.sendMail({
-    to: userMail,
-    from: 'test@wheelE.com',
-    subject: subject,
-    html: `<h1>${message}</h1> <br/> <a href="${Url}">${Url}</a> <br/> <footer><p>Copyright © WheelE 2019</p></footer>` // TODO  Add Decent Html here
-  })
+export const sendMail = (mailDataObject: MailObject) => {
+  const generatedMailTemp: SES.Types.SendEmailRequest =
+    generateMailTempelate(mailDataObject)
+  const sendPromise = SESInstance.sendEmail(generatedMailTemp).promise()
 
-  return response
+  sendPromise
+    .then((data) => {
+      return {
+        mailID: data.MessageId,
+        message: 'Email has been sent successfully'
+      }
+    })
+    .catch((err) => {
+      console.log(err?.message)
+      throw new Error(err?.message)
+    })
 }
