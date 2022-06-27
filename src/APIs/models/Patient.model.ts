@@ -18,7 +18,7 @@ export const getAllPatientsBySupervisorId = async (
  * @returns all patients data
  */
 export const getAllPatients = async () => {
-  const patients = Patient.find()
+  const patients = await Patient.find()
 
   return patients
 }
@@ -29,7 +29,7 @@ export const getAllPatients = async () => {
  * @returns patient data
  */
 export const getPatient = async (patientId: mongoose.Types.ObjectId) => {
-  const patient = Patient.findById(patientId)
+  const patient = await Patient.findById(patientId)
 
   return patient
 }
@@ -54,7 +54,6 @@ export const createPatient = async (patientInput: CreatePatientObjectType) => {
   const response = await Patient.create({
     name: patientInput.patient_name,
     email: patientInput.email,
-    // will add hashing in auth PRs
     password: patientInput.password,
     phone: patientInput.phone,
     emergency_number: patientInput.emergency_number,
@@ -63,7 +62,8 @@ export const createPatient = async (patientInput: CreatePatientObjectType) => {
     weight: patientInput.weight,
     height: patientInput.height,
     dob: patientInput.dob,
-    smoking: patientInput.smoking
+    smoking: patientInput.smoking,
+    profile_picture: patientInput.profile_picture
   })
 
   return response
@@ -85,8 +85,14 @@ export const deletePatient = async (patientId: mongoose.Types.ObjectId) => {
  * @param patientId
  * @returns the updated patient record
  */
-export const updatePatient = async (patientId: mongoose.Types.ObjectId, updatePatientInput:CreatePatientObjectType) => {
-  const patient = Patient.findByIdAndUpdate(patientId, updatePatientInput, { returnDocument: 'after' })
+export const updatePatient = async (
+  patientId: mongoose.Types.ObjectId,
+  updatePatientInput: CreatePatientObjectType
+) => {
+  const patient = Patient.findByIdAndUpdate(patientId, updatePatientInput, {
+    returnDocument: 'after'
+  })
+
   return patient
 }
 
@@ -120,4 +126,23 @@ export const updateVerificationStatus = async (
   )
 
   return patient
+}
+/**
+ *
+ * @param patientId
+ * @param healthRecord
+ * @returns the updated patient record
+ */
+export const uploadMedicalRecord = async (
+  patientId: mongoose.Types.ObjectId,
+  medicalRecord: string
+) => {
+  const patient = await Patient.findById(patientId)
+
+  if (patient?.medical_history) {
+    patient.medical_history.push(medicalRecord)
+    const res = await patient.save()
+
+    return res
+  }
 }

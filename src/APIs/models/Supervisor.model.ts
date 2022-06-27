@@ -3,9 +3,9 @@ import { SupervisorObjectType } from '../types/Supervisor.type'
 import mongoose from 'mongoose'
 
 export const createSupervisior = async (
-  supervisorDate: SupervisorObjectType
+  supervisorData: SupervisorObjectType
 ) => {
-  const response = await SupervisiorModel.create(supervisorDate)
+  const response = await SupervisiorModel.create(supervisorData)
 
   return response
 }

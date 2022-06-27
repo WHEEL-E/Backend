@@ -27,8 +27,7 @@ const SupervisiorSchema = new mongoose.Schema(
       required: true
     },
     profile_picture: {
-      type: String,
-      required: true
+      type: String
     },
     associated_patients: {
       type: [{ type: mongoose.Types.ObjectId, ref: 'Patient' }],

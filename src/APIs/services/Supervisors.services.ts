@@ -1,15 +1,18 @@
+import * as FileModel from '../models/Files.model'
 import * as SupervisorModel from '../models/Supervisor.model'
 import { SupervisorObjectType } from '../types/Supervisor.type'
 import { UnprocessableError } from '../types/general.types'
 import bcrypt from 'bcryptjs'
 
 export const createSupervisor = async (
-  supervisorData: SupervisorObjectType
+  supervisorData: SupervisorObjectType,
+  profilePictureFileId: string
 ) => {
   const hashedPass = await bcrypt.hash(supervisorData.password, 10)
   const response = SupervisorModel.createSupervisior({
     ...supervisorData,
-    password: hashedPass
+    password: hashedPass,
+    profile_picture: profilePictureFileId
   })
 
   return response
@@ -53,3 +56,19 @@ export const getSupervisorById = async (supervisorId: mongoose.Types.ObjectId) =
 
 export const filterSupervisorsByName = async (name: string) =>
   SupervisorModel.filterSupervisorsByName(name)
+
+export const getSupervisorProfilePicture = async (supervisorId:string) => {
+  const supervisor = await SupervisorModel.getSupervisorById(supervisorId)
+  if (!supervisor) {
+    throw new UnprocessableError('Supervisor not found')
+  }
+
+  const { profile_picture } = supervisor
+  if (!profile_picture) {
+    throw new UnprocessableError('Supervisor has no profile picture')
+  }
+
+  const imageFile = FileModel.getProfilePicture(profile_picture)
+
+  return imageFile
+}

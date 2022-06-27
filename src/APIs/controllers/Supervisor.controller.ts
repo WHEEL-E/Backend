@@ -3,8 +3,18 @@ import { RequestHandler } from 'express'
 import mongoose from 'mongoose'
 import { sendVerificationMail } from '../services/VerificationMail.services'
 
-export const supervisiorSignUp: RequestHandler = async ({ body }) => {
-  const supervisor = await SupervisorServices.createSupervisor(body)
+export const supervisiorSignUp: RequestHandler = async ({ body, file }) => {
+  let profilePictureFileId
+  // @ts-ignore becasue property id doesn't exist on type file as it's not supported by docs
+  if (file.id === undefined) {
+    profilePictureFileId = ''
+  }
+  // @ts-ignore
+  profilePictureFileId = file.id
+  const supervisor = await SupervisorServices.createSupervisor(
+    body,
+    profilePictureFileId
+  )
   await sendVerificationMail(supervisor.email, supervisor._id, supervisor.name)
 
   return {
@@ -58,5 +68,18 @@ export const filterSupervisorsByName: RequestHandler = async ({ query }) => {
   return {
     response,
     message: 'Supervisors\'s data Successfully Fetched'
+  }
+}
+
+export const getSupervisorProfilePicture: RequestHandler = async ({
+  params
+}) => {
+  const response = await SupervisorServices.getSupervisorProfilePicture(
+    params.id
+  )
+
+  return {
+    response,
+    message: 'Supervisor\'s profile picture Successfully Fetched'
   }
 }
