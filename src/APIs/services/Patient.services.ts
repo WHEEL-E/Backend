@@ -1,7 +1,7 @@
 import * as PatientModel from '../models/Patient.model'
 import { CreatePatientObjectType } from '../types/Patient.type'
 import { UnprocessableError } from '../types/general.types'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import mongoose from 'mongoose'
 
 export const getAllPatients = () => {

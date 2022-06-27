@@ -5,14 +5,14 @@ import { handler } from '.'
 
 const router = express.Router()
 router.get(
-  '/:id',
+  '/patients/:id',
   validatePatientId, (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: RemindersController.getAllRemindersByPatientId })
   }
 )
 
 router.get(
-  '/:id',
+  '/supervisors/:id',
   validateSupervisorId, (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: RemindersController.getAllRemindersBySupervisorId })
   }

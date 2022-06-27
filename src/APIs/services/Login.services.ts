@@ -3,7 +3,7 @@ import * as SupervisorModel from '../models/Supervisor.model'
 import * as jwt from 'jsonwebtoken'
 import { USER_ROLES } from '../types/User.types'
 import { UnprocessableError } from '../types/general.types'
-import bcyrpt from 'bcrypt'
+import bcyrpt from 'bcryptjs'
 
 export const login = async (email: string, password:string, role:string) => {
   let user
