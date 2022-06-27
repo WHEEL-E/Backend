@@ -13,7 +13,7 @@ const generateMailTempelate = (mailData: MailObject) => {
       Body: {
         Html: {
           Charset: 'UTF-8',
-          Data: `<html><body><h3>Hello ${userName}</h3><p>${mailBody}</p> <p>Best Wishes</p> <p>StorkyApp Team</p></body></html>`
+          Data: `<html><body><h3>Hello ${userName}</h3><p>${mailBody}</p> <p>Best Wishes</p> <p>Wheel.E Team</p></body></html>`
         },
         Text: {
           Charset: 'UTF-8',

@@ -10,12 +10,13 @@ import { sendMail } from './APIs/services/SendingMail.services'
 const app: Application = express()
 const port: number = 3000
 
+// Example
 const test = async () => {
   const data = await sendMail({
-    userMail: ['mh249688@yahoo.com'],
+    userMail: ['leoelkzaz@yahoo.com'],
     mailBody: 'Testing Mail Body',
     subject: 'Testing Mail',
-    userName: 'Mohammed Hassan'
+    userName: 'Alaa'
   })
   console.log(data)
 }

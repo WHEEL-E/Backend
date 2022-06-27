@@ -5,7 +5,7 @@ import { sendVerificationMail } from '../services/VerificationMail.services'
 
 export const supervisiorSignUp: RequestHandler = async ({ body }) => {
   const supervisor = await SupervisorServices.createSupervisor(body)
-  await sendVerificationMail(supervisor.email, supervisor._id)
+  await sendVerificationMail(supervisor.email, supervisor._id, supervisor.name)
 
   return {
     response: supervisor,
@@ -41,11 +41,13 @@ export const getAllSupervisors: RequestHandler = async () => {
 }
 
 export const getSupervisorById: RequestHandler = async ({ params }) => {
-  const response = await SupervisorServices.getSupervisorById(new mongoose.Types.ObjectId(params.id))
+  const response = await SupervisorServices.getSupervisorById(
+    new mongoose.Types.ObjectId(params.id)
+  )
 
   return {
     response,
-    message: "Supervisor's data Successfully Fetched"
+    message: 'Supervisor\'s data Successfully Fetched'
   }
 }
 
@@ -55,6 +57,6 @@ export const filterSupervisorsByName: RequestHandler = async ({ query }) => {
 
   return {
     response,
-    message: "Supervisors's data Successfully Fetched"
+    message: 'Supervisors\'s data Successfully Fetched'
   }
 }
