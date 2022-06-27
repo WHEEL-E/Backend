@@ -35,7 +35,7 @@ export const getAllSupervisors = async () => {
   return supervisors
 }
 
-export const getSupervisorById = async (supervisorId: string) => {
+export const getSupervisorById = async (supervisorId: mongoose.Types.ObjectId) => {
   const supervisor = await SupervisiorModel.findById(supervisorId)
 
   return supervisor
@@ -67,4 +67,19 @@ export const linkPatient = async (
   const res = await supervisor.save()
 
   return res
+}
+
+export const updateSupervisorVerificationStatus = async (
+  id: mongoose.Types.ObjectId,
+  newValue: Boolean
+) => {
+  const patient = await SupervisiorModel.findByIdAndUpdate(
+    id,
+    {
+      isVerified: newValue
+    },
+    { new: true }
+  )
+
+  return patient
 }

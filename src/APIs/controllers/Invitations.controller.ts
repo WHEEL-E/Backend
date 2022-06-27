@@ -26,7 +26,7 @@ export const getUserInvitations: RequestHandler = async ({ params, query }) => {
 
   return {
     response: response,
-    message: "User/'/s Invitations retrieved successfully"
+    message: 'User/\'/s Invitations retrieved successfully'
   }
 }
 

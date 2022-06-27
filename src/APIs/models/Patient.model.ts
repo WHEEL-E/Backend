@@ -85,8 +85,14 @@ export const deletePatient = async (patientId: mongoose.Types.ObjectId) => {
  * @param patientId
  * @returns the updated patient record
  */
-export const updatePatient = async (patientId: mongoose.Types.ObjectId, updatePatientInput:CreatePatientObjectType) => {
-  const patient = Patient.findByIdAndUpdate(patientId, updatePatientInput, { returnDocument: 'after' })
+export const updatePatient = async (
+  patientId: mongoose.Types.ObjectId,
+  updatePatientInput: CreatePatientObjectType
+) => {
+  const patient = Patient.findByIdAndUpdate(patientId, updatePatientInput, {
+    returnDocument: 'after'
+  })
+
   return patient
 }
 
@@ -107,6 +113,20 @@ export const linkSupervisor = async (
   }
 }
 
+export const updateVerificationStatus = async (
+  id: mongoose.Types.ObjectId,
+  newValue: Boolean
+) => {
+  const patient = await Patient.findByIdAndUpdate(
+    id,
+    {
+      isVerified: newValue
+    },
+    { new: true }
+  )
+
+  return patient
+}
 /**
  *
  * @param patientId

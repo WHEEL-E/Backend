@@ -1,11 +1,15 @@
 /* eslint-disable no-undef */
 import * as ReminderService from '../../src/APIs/services/Reminders.services'
 import * as dbHandler from '../utilities/dbHandler'
-import { CreateReminderObjectType, UpdateReminderObjectType } from '../../src/APIs/types/Reminder.type'
+import {
+  CreateReminderObjectType,
+  UpdateReminderObjectType
+} from '../../src/APIs/types/Reminder.type'
 import { createReminder } from '../utilities/seed'
 import mongoose from 'mongoose'
 describe('Testing Note Service', () => {
-  let reminderId1: mongoose.Types.ObjectId, reminderId2:mongoose.Types.ObjectId
+  let reminderId1: mongoose.Types.ObjectId,
+    reminderId2: mongoose.Types.ObjectId
   beforeAll(async () => await dbHandler.connect())
   beforeEach(async () => {
     const result = await createReminder()
@@ -18,22 +22,28 @@ describe('Testing Note Service', () => {
 
   test('Get reminders by patient id', async () => {
     const patientId = new mongoose.Types.ObjectId('6263ce0577164ec6745e3bd7')
-    const reminders = await ReminderService.getAllRemindersByPatientId(patientId)
+    const reminders = await ReminderService.getAllRemindersByPatientId(
+      patientId
+    )
 
     expect(reminders.length).toBe(2)
     expect(reminders[0].title).toBe('Hello')
   })
 
   test('Get reminders by supervisor id', async () => {
-    const supervisorId = new mongoose.Types.ObjectId('6263a04f5de1617c2c84dbbd')
-    const reminders = await ReminderService.getAllRemindersBySupervisorId(supervisorId)
+    const supervisorId = new mongoose.Types.ObjectId(
+      '6263a04f5de1617c2c84dbbd'
+    )
+    const reminders = await ReminderService.getAllRemindersBySupervisorId(
+      supervisorId
+    )
 
     expect(reminders.length).toBe(2)
     expect(reminders[0].title).toBe('Hello')
   })
 
   test('Create a reminder', async () => {
-    const reminderInput:CreateReminderObjectType = {
+    const reminderInput: CreateReminderObjectType = {
       patient_id: new mongoose.Types.ObjectId('624b12004b1127a31d8da46e'),
       supervisor_id: new mongoose.Types.ObjectId('6263a04f5de1617c2c84dbbd'),
       title: 'Hello',
