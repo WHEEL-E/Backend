@@ -42,9 +42,9 @@ export const deleteNote: RequestHandler = async ({ params }) => {
   }
 }
 
-export const updateNote: RequestHandler = async ({ body, params }) => {
+export const updateNote: RequestHandler = async ({ body }) => {
   const updateNoteInput: UpdateNoteObjectType = {
-    noteId: new mongoose.Types.ObjectId(params.id),
+    noteId: new mongoose.Types.ObjectId(body.id),
     title: body.title,
     description: body.description
   }

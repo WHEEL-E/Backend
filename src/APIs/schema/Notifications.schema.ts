@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const NotificationsSchema = new mongoose.Schema(
   {
     user_id: {
-      type: Number,
+      type: mongoose.Types.ObjectId,
       required: true
     },
     title: {

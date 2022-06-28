@@ -1,6 +1,6 @@
 import * as NotesController from '../controllers/Notes.controller'
 import express, { NextFunction, Request, Response } from 'express'
-import { validateNoteCreation, validateNoteDeletion, validateNoteId, validateNoteUpdate } from '../validators/Notes.validator'
+import { validateNoteCreation, validateNoteId, validateNoteUpdate } from '../validators/Notes.validator'
 import { handler } from '.'
 
 const router = express.Router()
@@ -29,7 +29,7 @@ router.post(
 
 router.delete(
   '/:id',
-  validateNoteDeletion,
+  validateNoteId,
   (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: NotesController.deleteNote })
   }

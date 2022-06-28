@@ -33,7 +33,6 @@ export const getPatient: RequestHandler = async ({ params }) => {
 }
 
 export const createPatient: RequestHandler = async ({ body, file }) => {
-  let profilePictureFileId
   const patientInfo: CreatePatientObjectType = {
     patient_name: body.patient_name,
     email: body.email,
@@ -47,12 +46,9 @@ export const createPatient: RequestHandler = async ({ body, file }) => {
     weight: Number(body.weight),
     smoking: Boolean(body.smoking)
   }
+
   // @ts-ignore
-  if (file.id === undefined) {
-    profilePictureFileId = ''
-  }
-  // @ts-ignore
-  profilePictureFileId = file.id
+  const profilePictureFileId = file.id === undefined ? '' : file.id
   const response = await PatientsServices.createPatient(patientInfo, profilePictureFileId)
 
   return {
@@ -101,7 +97,7 @@ export const getPatientProfilePicture: RequestHandler = async ({ params }) => {
 
   return {
     response,
-    message: "Patients's profile picture successfully fetched"
+    message: 'Patients\'s profile picture successfully fetched'
   }
 }
 
@@ -111,7 +107,7 @@ export const getPatientMedicalRecords: RequestHandler = async ({ params }) => {
 
   return {
     response,
-    message: "Patients's medical records successfully fetched"
+    message: 'Patients\'s medical records successfully fetched'
   }
 }
 
@@ -128,6 +124,6 @@ export const uploadMedicalRecord: RequestHandler = async ({ params, file }) => {
 
   return {
     response,
-    message: "Patients's Health Record Was Added Successfully"
+    message: 'Patients\'s Health Record Was Added Successfully'
   }
 }

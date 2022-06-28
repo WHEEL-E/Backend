@@ -1,8 +1,12 @@
 import * as NotificationServices from '../services/Notifications.services'
 import { RequestHandler } from 'express'
+import mongoose from 'mongoose'
 
 export const createNotification: RequestHandler = async ({ body }) => {
-  const response = await NotificationServices.createNotification(body)
+  const response = await NotificationServices.createNotification({
+    ...body,
+    user_id: new mongoose.Types.ObjectId(body.user_id)
+  })
 
   return {
     response: response,
