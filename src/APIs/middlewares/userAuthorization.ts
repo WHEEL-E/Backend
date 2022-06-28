@@ -21,7 +21,7 @@ export const userAuthorization = (requiredRules: string[]) => {
     const response = await validateRules(requiredRules, currentUser.role)
     if (!response) {
       const response = new AccessDeniedError(
-        "You don't have the required permissions for this operation"
+        'You don\'t have the required permissions for this operation'
       )
 
       res.status(403).send(response)

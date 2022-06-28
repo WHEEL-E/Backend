@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import { AccessDeniedError } from '../types/general.types'
-import jwt from 'jsonwebtoken'
 
 export const checkAuthentication = (
   req: Request,
@@ -8,25 +8,17 @@ export const checkAuthentication = (
   next: NextFunction
 ) => {
   const secret = process.env.JWT_SECRET as jwt.Secret
-  const token = req.headers.token
+  const token = req.headers.token as string
 
   if (!token) {
     return res.status(403).send('A token is required for authentication')
   }
   try {
-    const decoded = jwt.verify(token, secret)
+    const decoded = jwt.verify(token, secret) as JwtPayload
     res.locals = decoded
   } catch (err) {
     throw new AccessDeniedError('Invalid Token')
   }
 
   return next()
-
-  //   // temp mode
-  //   res.locals = {
-  //     currentUser: {
-  //       id: 1
-  //     }
-  //   }
-  //   next()
 }
