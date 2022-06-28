@@ -47,7 +47,7 @@ export const getInvitations = async (userID: string, userType: USER_ROLES) => {
       return await InvitationModels.getSupervisorInvitations(userID)
 
     default:
-      throw new UnprocessableError("User type doesn't exist")
+      throw new UnprocessableError('User type doesn\'t exist')
   }
 }
 

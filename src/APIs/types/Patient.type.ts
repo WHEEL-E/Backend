@@ -15,7 +15,8 @@ export interface IPatientModel{
       chair_serial_id?: string
       supervisors? : [mongoose.Types.ObjectId],
       profile_picture?: string
-      medical_history:[string]
+      medical_history:[string],
+      isVerified:Boolean
 }
 
 export type CreatePatientObjectType = {

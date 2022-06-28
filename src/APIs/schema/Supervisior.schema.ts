@@ -32,6 +32,10 @@ const SupervisiorSchema = new mongoose.Schema(
     associated_patients: {
       type: [{ type: mongoose.Types.ObjectId, ref: 'Patient' }],
       default: []
+    },
+    isVerified: {
+      type: Boolean,
+      default: false
     }
   },
   {

@@ -1,5 +1,7 @@
 import * as SupervisorServices from '../services/Supervisors.services'
 import { RequestHandler } from 'express'
+import mongoose from 'mongoose'
+import { sendVerificationMail } from '../services/VerificationMail.services'
 
 export const supervisiorSignUp: RequestHandler = async ({ body, file }) => {
   let profilePictureFileId
@@ -9,7 +11,11 @@ export const supervisiorSignUp: RequestHandler = async ({ body, file }) => {
   }
   // @ts-ignore
   profilePictureFileId = file.id
-  const supervisor = await SupervisorServices.createSupervisor(body, profilePictureFileId)
+  const supervisor = await SupervisorServices.createSupervisor(
+    body,
+    profilePictureFileId
+  )
+  await sendVerificationMail(supervisor.email, supervisor._id, supervisor.name)
 
   return {
     response: supervisor,
@@ -45,11 +51,13 @@ export const getAllSupervisors: RequestHandler = async () => {
 }
 
 export const getSupervisorById: RequestHandler = async ({ params }) => {
-  const response = await SupervisorServices.getSupervisorById(params.id)
+  const response = await SupervisorServices.getSupervisorById(
+    new mongoose.Types.ObjectId(params.id)
+  )
 
   return {
     response,
-    message: "Supervisor's data Successfully Fetched"
+    message: 'Supervisor\'s data Successfully Fetched'
   }
 }
 
@@ -59,15 +67,19 @@ export const filterSupervisorsByName: RequestHandler = async ({ query }) => {
 
   return {
     response,
-    message: "Supervisors's data Successfully Fetched"
+    message: 'Supervisors\'s data Successfully Fetched'
   }
 }
 
-export const getSupervisorProfilePicture: RequestHandler = async ({ params }) => {
-  const response = await SupervisorServices.getSupervisorProfilePicture(params.id)
+export const getSupervisorProfilePicture: RequestHandler = async ({
+  params
+}) => {
+  const response = await SupervisorServices.getSupervisorProfilePicture(
+    params.id
+  )
 
   return {
     response,
-    message: "Supervisor's profile picture Successfully Fetched"
+    message: 'Supervisor\'s profile picture Successfully Fetched'
   }
 }
