@@ -6,12 +6,12 @@ export const validateLoginInput = [
   body('email')
     .isString()
     .exists()
-    .withMessage("Insuffecient parameters. 'email' is required"),
+    .withMessage('Insuffecient parameters. \'email\' is required'),
 
   body('password')
     .isString()
     .exists()
-    .withMessage("Insuffecient parameters. 'password' is required"),
+    .withMessage('Insuffecient parameters. \'password\' is required'),
 
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)
@@ -19,20 +19,20 @@ export const validateLoginInput = [
 ]
 
 export const validateVerifyMailInput = [
-  body('id')
+  body('user_id')
     .isString()
     .exists()
-    .withMessage("Insuffecient parameters. 'User ID' is required"),
+    .withMessage('Insuffecient parameters. \'User ID\' is required'),
 
-  body('token')
+  body('verificationToken')
     .isString()
     .exists()
-    .withMessage("Insuffecient parameters. 'Verification Token' is required"),
+    .withMessage('Insuffecient parameters. \'Verification Token\' is required'),
 
   body('userType')
     .isString()
     .exists()
-    .withMessage("Insuffecient parameters. 'User Type' is required"),
+    .withMessage('Insuffecient parameters. \'User Type\' is required'),
 
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)
@@ -40,15 +40,15 @@ export const validateVerifyMailInput = [
 ]
 
 export const validateResendMailInput = [
-  body('id')
+  body('user_id')
     .isString()
     .exists()
-    .withMessage("Insuffecient parameters. 'User ID' is required"),
+    .withMessage('Insuffecient parameters. \'User ID\' is required'),
 
   body('email')
     .isString()
     .exists()
-    .withMessage("Insuffecient parameters. 'User Mail' is required"),
+    .withMessage('Insuffecient parameters. \'User Mail\' is required'),
 
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)

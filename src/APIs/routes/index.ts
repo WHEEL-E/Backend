@@ -30,7 +30,7 @@ export const handler = async ({
 }
 
 router.use('/notifications', NotificationRoutes)
-router.use('/login', LoginRoutes)
+router.use('/users', LoginRoutes)
 router.use('/supervisor', SupervisorRoutes)
 router.use('/notes', NotesRoutes)
 router.use('/reminders', RemindersRoutes)

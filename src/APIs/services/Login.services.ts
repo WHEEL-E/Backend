@@ -5,7 +5,7 @@ import { USER_ROLES } from '../types/User.types'
 import { UnprocessableError } from '../types/general.types'
 import bcyrpt from 'bcryptjs'
 
-export const login = async (email: string, password:string, role:string) => {
+export const login = async (email: string, password: string, role: string) => {
   let user
   switch (role) {
     case USER_ROLES.PATIENT:
@@ -19,7 +19,9 @@ export const login = async (email: string, password:string, role:string) => {
   }
 
   if (!user) {
-    throw new UnprocessableError('Email not found in the database, can not login.')
+    throw new UnprocessableError(
+      'Email not found in the database, can not login.'
+    )
   }
 
   const validPass = bcyrpt.compare(user.password, password)
@@ -29,13 +31,15 @@ export const login = async (email: string, password:string, role:string) => {
   const token = generateToken(user._id, email, password)
 
   return {
-    userId: user._id,
-    userName: user.name,
+    ...user._doc,
     token: token
   }
 }
 
-const generateToken = (id:string, email:string, password:string) => {
+const generateToken = (id: string, email: string, password: string) => {
   // TODO: move my_secret to environment variable
-  return jwt.sign({ data: { id: id, user_email: email, pass: password } }, 'My_SECRET')
+  return jwt.sign(
+    { data: { id: id, user_email: email, pass: password } },
+    'My_SECRET'
+  )
 }

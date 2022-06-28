@@ -22,8 +22,8 @@ export const login: RequestHandler = async ({ body }) => {
 
 export const verifyMailController: RequestHandler = async ({ body }) => {
   const response = await verifyMail(
-    new mongoose.Types.ObjectId(body.id),
-    body.token,
+    new mongoose.Types.ObjectId(body.user_id),
+    body.verificationToken,
     body.userType as USER_ROLES
   )
 
@@ -37,7 +37,7 @@ export const resendVerificationMailController: RequestHandler = async ({
   body
 }) => {
   const response = await resendVerificationMail(
-    new mongoose.Types.ObjectId(body.id),
+    new mongoose.Types.ObjectId(body.user_id),
     body.email,
     body.userName || undefined
   )
