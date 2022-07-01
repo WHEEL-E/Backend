@@ -30,7 +30,8 @@ export const supervisorSignUp: RequestHandler = async ({ body, file }) => {
 
   return {
     response: supervisor,
-    message: 'Successfully Registered'
+    message:
+      'Supervisor created successfully, and Verification Mail has been sent'
   }
 }
 

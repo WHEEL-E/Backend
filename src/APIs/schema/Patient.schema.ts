@@ -62,7 +62,8 @@ const PatientSchema = new Schema<IPatientModel>({
   profile_picture: {
     type: String
   },
-  medical_history: [{ type: String }]
+  medical_history: [{ type: String }],
+  notificatio_token: { type: String }
 })
 
 const Patient = model('Patient', PatientSchema)
