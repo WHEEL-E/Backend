@@ -36,7 +36,8 @@ const SupervisiorSchema = new mongoose.Schema(
     isVerified: {
       type: Boolean,
       default: false
-    }
+    },
+    notificatio_token: { type: String }
   },
   {
     timestamps: {
