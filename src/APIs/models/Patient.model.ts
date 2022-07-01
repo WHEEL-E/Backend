@@ -10,13 +10,20 @@ import mongoose from 'mongoose'
  */
 export const getAllPatientsBySupervisorId = async (
   supervisorId: mongoose.Types.ObjectId
-) => {}
+) => {
+  const patients = await Patient.find({
+    supervisors: supervisorId
+  })
+
+  return patients
+}
 
 /**
  *
  * @param
  * @returns all patients data
  */
+
 export const getAllPatients = async () => {
   const patients = await Patient.find()
 
@@ -127,6 +134,7 @@ export const updateVerificationStatus = async (
 
   return patient
 }
+
 /**
  *
  * @param patientId

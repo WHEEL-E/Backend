@@ -35,7 +35,7 @@ router.get(
 )
 
 router.get(
-  '/:id',
+  '/patient/:id',
   validatePatientId,
   checkAuthentication,
   (req: Request, res: Response, next: NextFunction) => {
