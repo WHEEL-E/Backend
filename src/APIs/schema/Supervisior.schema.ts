@@ -29,7 +29,7 @@ const SupervisiorSchema = new mongoose.Schema(
     profile_picture: {
       type: String
     },
-    associated_patients: {
+    associated_users: {
       type: [{ type: mongoose.Types.ObjectId, ref: 'Patient' }],
       default: []
     },
@@ -37,7 +37,7 @@ const SupervisiorSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    notificatio_token: { type: String }
+    notification_token: { type: String }
   },
   {
     timestamps: {

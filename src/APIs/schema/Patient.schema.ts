@@ -55,7 +55,7 @@ const PatientSchema = new Schema<IPatientModel>({
   chair_serial_id: {
     type: String
   },
-  supervisors: {
+  associated_users: {
     type: [{ type: mongoose.Types.ObjectId, ref: 'Supervisor', default: [] }],
     default: []
   },
@@ -63,7 +63,7 @@ const PatientSchema = new Schema<IPatientModel>({
     type: String
   },
   medical_history: [{ type: String }],
-  notificatio_token: { type: String }
+  notification_token: { type: String }
 })
 
 const Patient = model('Patient', PatientSchema)

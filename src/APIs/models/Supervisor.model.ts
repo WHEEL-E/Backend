@@ -63,7 +63,7 @@ export const linkPatient = async (
     new mongoose.Types.ObjectId(supervisorID)
   )
 
-  supervisor.associated_patients.push(patientID)
+  supervisor.associated_users.push(patientID)
   const res = await supervisor.save()
 
   return res

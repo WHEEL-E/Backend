@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import { sendVerificationMail } from '../services/VerificationMail.services'
 
 export const supervisiorSignUp: RequestHandler = async ({ body, file }) => {
+  console.log('Tessst')
   let profilePictureFileId
   // @ts-ignore becasue property id doesn't exist on type file as it's not supported by docs
   if (file.id === undefined) {
