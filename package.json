@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Software Backend",
   "main": "index.js",
+  "engines": {
+    "node": "16.xx",
+    "npm": "8.xx"
+  },
   "scripts": {
     "start": "nodemon ./src/app.ts",
     "test": "jest --runInBand --detectOpenHandles --forceExit"
