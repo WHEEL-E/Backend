@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 export interface IPatientModel {
+  _id?: mongoose.Types.ObjectId,
   name: string;
   email: string;
   password: string;

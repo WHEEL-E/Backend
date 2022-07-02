@@ -54,7 +54,7 @@ export const createPatient: RequestHandler = async ({ body, file }) => {
   }
 
   // @ts-ignore
-  const profilePictureFileId = file.id === undefined ? '' : file.id
+  const profilePictureFileId = file === undefined ? '' : file.id
   const response = await PatientsServices.createPatient(
     patientInfo,
     profilePictureFileId
