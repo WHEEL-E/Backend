@@ -59,7 +59,7 @@ export const verifyMail = async (
   return updatedUser
 }
 
-const UserVariations = async (
+export const UserVariations = async (
   id: mongoose.Types.ObjectId,
   userType: USER_ROLES,
   ToDo: 'get' | 'update'

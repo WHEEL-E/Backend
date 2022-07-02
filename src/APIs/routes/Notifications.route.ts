@@ -36,12 +36,19 @@ router.put(
     handler({ req, res, next, fn: NotificationsController.editNotification })
 )
 
+router.post(
+  '/push',
+  checkAuthentication,
+  (req: Request, res: Response, next: NextFunction) =>
+    handler({ req, res, next, fn: NotificationsController.delteNotification })
+)
+
 router.delete(
   '/:id',
   NotificationsValidator.validateNotificationID,
   checkAuthentication,
   (req: Request, res: Response, next: NextFunction) =>
-    handler({ req, res, next, fn: NotificationsController.delteNotification })
+    handler({ req, res, next, fn: NotificationsController.pushNotification })
 )
 
 export default router
