@@ -30,3 +30,7 @@ export const findTokenByUserID = async (userId: mongoose.Types.ObjectId) => {
 
   return fetchedToken
 }
+
+export const removeToken = async (tokenId: mongoose.Types.ObjectId) => {
+  return await ResetPasswordToken.findByIdAndRemove(tokenId)
+}
