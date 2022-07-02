@@ -124,8 +124,8 @@ export const linkSupervisor = async (
   const patient = await Patient.findById(
     new mongoose.Types.ObjectId(patientID)
   )
-  if (patient?.supervisors) {
-    patient.supervisors.push(supervisorID)
+  if (patient?.associated_users) {
+    patient.associated_users.push(supervisorID)
     const res = await patient.save()
 
     return res

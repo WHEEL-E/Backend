@@ -13,11 +13,11 @@ export interface IPatientModel {
   dob: Date;
   smoking?: boolean;
   chair_serial_id?: string;
-  supervisors?: [mongoose.Types.ObjectId];
+  associated_users?: [mongoose.Types.ObjectId];
   profile_picture?: string;
   medical_history: [string];
   isVerified: Boolean;
-  notificatio_token: string;
+  notification_token: string;
 }
 
 export type CreatePatientObjectType = {
@@ -33,5 +33,5 @@ export type CreatePatientObjectType = {
   dob: Date;
   smoking: boolean;
   profile_picture?: string;
-  notificatio_token?: string
+  notification_token?: string
 };

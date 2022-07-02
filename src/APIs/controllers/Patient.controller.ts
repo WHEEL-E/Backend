@@ -50,7 +50,7 @@ export const createPatient: RequestHandler = async ({ body, file }) => {
     height: Number(body.height),
     weight: Number(body.weight),
     smoking: Boolean(body.smoking),
-    notificatio_token: body.notificatio_token
+    notification_token: body.notification_token
   }
 
   // @ts-ignore

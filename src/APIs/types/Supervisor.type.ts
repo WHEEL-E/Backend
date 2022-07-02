@@ -5,5 +5,5 @@ export type SupervisorObjectType = {
   phone: number;
   gender: string;
   profile_picture: string;
-  notificatio_token: string;
+  notification_token: string;
 };

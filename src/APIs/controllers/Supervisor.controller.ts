@@ -12,14 +12,15 @@ export const supervisorSignUp: RequestHandler = async ({ body, file }) => {
   }
   // @ts-ignore
   profilePictureFileId = file.id
-  
-  const supervisorData : SupervisorObjectType ={
-    name:body.name,
-    email:body.email,
+
+  const supervisorData : SupervisorObjectType = {
+    name: body.name,
+    email: body.email,
     password: body.password,
     phone: Number(body.phone),
     gender: body.gender,
-    profile_picture:""
+    profile_picture: '',
+    notification_token: body.notification_token
   }
 
   const supervisor = await SupervisorServices.createSupervisor(
