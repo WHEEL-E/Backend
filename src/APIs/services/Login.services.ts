@@ -173,7 +173,7 @@ export const resetPassword = async (role:string, token:string, newPassword: stri
   const mailData : MailObject = {
     userName: user.name,
     userMail: [user.email],
-    mailBody: `This is the confirmation mail that the password for your wheele account under mail ${user.email} has been changed. Keep safe ans secure.`,
+    mailBody: `This is the confirmation mail showing the password for your wheele account under mail ${user.email} has been changed. Keep safe ans secure.`,
     subject: 'Your password has been changed'
   }
 
