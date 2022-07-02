@@ -56,7 +56,6 @@ router.post(
   '/',
   uploadPhotosMiddleware,
   validatePatientCreation,
-  checkAuthentication,
   (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: PatientController.createPatient })
   }

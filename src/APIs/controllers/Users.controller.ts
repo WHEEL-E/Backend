@@ -47,3 +47,21 @@ export const resendVerificationMailController: RequestHandler = async ({
     message: 'New Verification Mail has just been sent successfully'
   }
 }
+
+export const recoverPassword: RequestHandler = async ({ body }) => {
+  const response = await LoginService.recoverPassword(body.email, body.role)
+
+  return {
+    response: response,
+    message: 'Email was sent to the user to reset password'
+  }
+}
+
+export const resetPassword: RequestHandler = async ({ params, body }) => {
+  const response = await LoginService.resetPassword(params.role, params.token, body.password)
+
+  return {
+    response: response,
+    message: 'Email was sent to the user to confirm the reset of password'
+  }
+}

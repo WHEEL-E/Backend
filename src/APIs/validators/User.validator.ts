@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { body } from 'express-validator'
+import { body, param } from 'express-validator'
 import validateResults from '../utilities/GeneralValidationFunction'
 
 export const validateLoginInput = [
@@ -49,6 +49,43 @@ export const validateResendMailInput = [
     .isString()
     .exists()
     .withMessage('Insuffecient parameters. \'User Mail\' is required'),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    validateResults(req, res, next)
+  }
+]
+
+export const validateForgetPasswordInput = [
+  body('email')
+    .isString()
+    .exists()
+    .withMessage('Insuffecient parameters. \'User EMAIL\' is required'),
+
+  body('role')
+    .isString()
+    .exists()
+    .withMessage('Insuffecient parameters. \'User ROLE\' is required'),
+
+  (req: Request, res: Response, next: NextFunction) => {
+    validateResults(req, res, next)
+  }
+]
+
+export const validateResetPasswordInput = [
+  param('token')
+    .isString()
+    .exists()
+    .withMessage('Insuffecient parameters. \'User EMAIL\' is required'),
+
+  param('role')
+    .isString()
+    .exists()
+    .withMessage('Insuffecient parameters. \'User ROLE\' is required'),
+
+  body('password')
+    .isString()
+    .exists()
+    .withMessage('Insuffecient parameters. \'User ROLE\' is required'),
 
   (req: Request, res: Response, next: NextFunction) => {
     validateResults(req, res, next)
