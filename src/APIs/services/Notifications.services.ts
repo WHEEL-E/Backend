@@ -6,9 +6,20 @@ import { UserVariations } from './VerificationMail.services'
 import axios from 'axios'
 import mongoose from 'mongoose'
 
-export const createNotification = (
+export const createNotification = async (
   notificationObject: NotificationObjectType
-) => NotificationModel.createNotification(notificationObject)
+) => {
+  const res = await NotificationModel.createNotification(notificationObject)
+  const { description, title, user_id, userRole } = notificationObject
+  await push({
+    body: description,
+    title,
+    _id: user_id.toString(),
+    userRole
+  })
+
+  return res
+}
 
 export const deleteNotification = async (id: string) => {
   const response = await NotificationModel.deleteNotification(id)
