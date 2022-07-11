@@ -3,8 +3,8 @@ import { NotificationObjectType } from '../types/Notifications.type'
 import { USER_ROLES } from '../types/User.types'
 import { UnprocessableError } from '../types/general.types'
 import { UserVariations } from './VerificationMail.services'
-import mongoose from 'mongoose'
 import axios from 'axios'
+import mongoose from 'mongoose'
 
 export const createNotification = (
   notificationObject: NotificationObjectType

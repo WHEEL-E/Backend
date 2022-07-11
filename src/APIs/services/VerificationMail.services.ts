@@ -103,7 +103,6 @@ export const resendVerificationMail = async (
   }
 
   const newToken = await generateToken(id, email)
-  console.log(newToken)
 
   const data = await sendMail({
     userMail: [email],
