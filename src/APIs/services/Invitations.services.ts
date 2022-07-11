@@ -5,8 +5,9 @@ import {
 } from '../types/Invitation.types'
 import { USER_ROLES } from '../types/User.types'
 import { UnprocessableError } from '../types/general.types'
-import { linkPatient } from '../models/Supervisor.model'
-import { linkSupervisor } from '../models/Patient.model'
+import { getSupervisorById, linkPatient } from '../models/Supervisor.model'
+import { getPatient, linkSupervisor } from '../models/Patient.model'
+import mongoose from 'mongoose'
 
 export const sendInvitationService = async (
   invitation: CreateInvitationObjectType
@@ -39,16 +40,23 @@ export const getInvitation = async (id: string) =>
   InvitationModels.getInvitation(id)
 
 export const getInvitations = async (userID: string, userType: USER_ROLES) => {
+  let invitations = []
   switch (userType) {
     case USER_ROLES.PATIENT:
-      return await InvitationModels.getPatientInvitations(userID)
+      invitations = await InvitationModels.getPatientInvitations(userID)
+      break
 
     case USER_ROLES.SUPERVISOR:
-      return await InvitationModels.getSupervisorInvitations(userID)
+      invitations = await InvitationModels.getSupervisorInvitations(userID)
+      break
 
     default:
       throw new UnprocessableError('User type doesn\'t exist')
   }
+
+  const AllInvitations = await getInvitationDetails(invitations as [])
+
+  console.log(AllInvitations)
 }
 
 export const acceptInvitation = async (inivitationID: string) => {
@@ -76,4 +84,31 @@ export const rejectInvitation = async (inivitationID: string) => {
   // TODO: Send rejection notification to patient
 
   return response
+}
+
+const getInvitationDetails = async (invitations: []) => {
+  const AllInvitations: any = []
+  await Promise.all(
+    invitations.map(async (invitation) => {
+      const { from_id, to_id } = invitation
+      const patient = await getPatient(new mongoose.Types.ObjectId(from_id))
+      const supervisor = await getSupervisorById(
+        new mongoose.Types.ObjectId(to_id)
+      )
+
+      AllInvitations.push({
+        invitation,
+        patient: {
+          name: patient?.name,
+          photo: patient?.profile_picture,
+          gender: patient?.gender,
+          birthDate: patient?.dob
+        },
+        supervisorName: supervisor.name,
+        supervisorPhoto: supervisor.profile_picture
+      })
+    })
+  )
+
+  return AllInvitations
 }
