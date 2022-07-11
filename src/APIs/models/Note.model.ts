@@ -30,11 +30,7 @@ export const getNote = async (noteId: mongoose.Types.ObjectId) => {
  * @returns id of the newly created input
  */
 export const createNote = async (noteInput: CreateNoteObjectType) => {
-  const response = await Note.create({
-    user_id: new mongoose.Types.ObjectId(noteInput.userId),
-    title: noteInput.title,
-    description: noteInput.description
-  })
+  const response = await Note.create(noteInput)
 
   return response
 }
