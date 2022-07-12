@@ -40,7 +40,7 @@ router.post(
   '/push',
   checkAuthentication,
   (req: Request, res: Response, next: NextFunction) =>
-    handler({ req, res, next, fn: NotificationsController.delteNotification })
+    handler({ req, res, next, fn: NotificationsController.pushNotification })
 )
 
 router.delete(
