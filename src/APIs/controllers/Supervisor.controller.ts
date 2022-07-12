@@ -27,7 +27,12 @@ export const supervisorSignUp: RequestHandler = async ({ body, file }) => {
     supervisorData,
     profilePictureFileId
   )
-  await sendVerificationMail(supervisor.email, supervisor._id, supervisor.name)
+  await sendVerificationMail(
+    supervisor.email,
+    supervisor._id,
+    supervisor.name,
+    body.url
+  )
 
   return {
     response: supervisor,

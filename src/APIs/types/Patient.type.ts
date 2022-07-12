@@ -34,5 +34,5 @@ export type CreatePatientObjectType = {
   dob: Date;
   smoking: boolean;
   profile_picture?: string;
-  notification_token?: string
+  notification_token?: string,
 };

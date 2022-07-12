@@ -24,14 +24,16 @@ const generateToken = async (id: mongoose.Types.ObjectId, email: string) => {
 export const sendVerificationMail = async (
   email: string,
   id: mongoose.Types.ObjectId,
-  userName: string | undefined
+  userName: string | undefined,
+  url: string
 ) => {
   const token = await generateToken(id, email)
   const data = await sendMail({
     userMail: [email],
     subject: 'Verification Mail',
     userName: userName || 'My Friend',
-    mailBody: `Please Open this link to Verify you appliction, ${token}`
+    mailBody: `Please Open this link to Verify you appliction`,
+    url: `${url}:${token}`
   })
 
   return { token, data }
@@ -88,7 +90,8 @@ export const UserVariations = async (
 export const resendVerificationMail = async (
   id: mongoose.Types.ObjectId,
   email: string,
-  userName: string | undefined
+  userName: string | undefined,
+  url: string
 ) => {
   const verificationToken = await VerificationMailModel.findTokenByUserID(id)
   if (verificationToken) {
@@ -96,7 +99,8 @@ export const resendVerificationMail = async (
       userMail: [email],
       subject: 'Verification Mail',
       userName: userName || 'My Friend',
-      mailBody: `Please Open this link to Verify you appliction, ${verificationToken}`
+      mailBody: `Please Open this link to Verify you appliction`,
+      url: `${url}:${verificationToken}`
     })
 
     return { verificationToken, data }
@@ -108,7 +112,8 @@ export const resendVerificationMail = async (
     userMail: [email],
     subject: 'Verification Mail',
     userName: userName || 'My Friend',
-    mailBody: `Please Open this link to Verify you appliction, ${newToken}`
+    mailBody: `Please Open this link to Verify you appliction`,
+    url: `${url}:${newToken}`
   })
 
   return { newToken, data }
