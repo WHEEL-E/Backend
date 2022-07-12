@@ -73,7 +73,7 @@ export const updateSupervisorVerificationStatus = async (
   id: mongoose.Types.ObjectId,
   newValue: Boolean
 ) => {
-  const patient = await SupervisiorModel.findByIdAndUpdate(
+  const supervisor = await SupervisiorModel.findByIdAndUpdate(
     id,
     {
       isVerified: newValue
@@ -81,5 +81,20 @@ export const updateSupervisorVerificationStatus = async (
     { new: true }
   )
 
-  return patient
+  return supervisor
+}
+
+export const updateSupervisorPassword = async (
+  id: mongoose.Types.ObjectId,
+  newPassword: string
+) => {
+  const supervisor = await SupervisiorModel.findByIdAndUpdate(
+    id,
+    {
+      password: newPassword
+    },
+    { new: true }
+  )
+
+  return supervisor
 }

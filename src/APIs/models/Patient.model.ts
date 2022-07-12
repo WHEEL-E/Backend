@@ -103,7 +103,21 @@ export const updatePatient = async (
 
   return patient
 }
+/**
+ *
+ * @param patientId
+ * @returns the updated patient record
+ */
+export const updatePatientPassword = async (
+  patientId: mongoose.Types.ObjectId,
+  newPassword: string
+) => {
+  const patient = Patient.findByIdAndUpdate(patientId, { password: newPassword }, {
+    returnDocument: 'after'
+  })
 
+  return patient
+}
 export const linkSupervisor = async (
   supervisorID: mongoose.Types.ObjectId,
   patientID: mongoose.Types.ObjectId
