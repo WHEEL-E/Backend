@@ -13,7 +13,10 @@ const generateMailTempelate = (mailData: MailObject) => {
       Body: {
         Html: {
           Charset: 'UTF-8',
-          Data: `<html><body><h3>Hello ${userName}</h3><div><p>${mailBody}</p> <a href=${url}>Open Link</a> </p></div> <p>Best Wishes</p> <p>Wheel.E Team</p></body></html>`
+          Data:
+            url === ''
+              ? `<html><body><h3>Hello ${userName}</h3><div><p>${mailBody}</p></div> <p>Best Wishes</p> <p>Wheel.E Team</p></body></html>`
+              : `<html><body><h3>Hello ${userName}</h3><div><p>${mailBody}</p> <a href=${url}>Open Link</a> </p></div> <p>Best Wishes</p> <p>Wheel.E Team</p></body></html>`
         },
         Text: {
           Charset: 'UTF-8',
