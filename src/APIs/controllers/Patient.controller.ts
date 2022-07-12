@@ -63,12 +63,14 @@ export const createPatient: RequestHandler = async ({ body, file }) => {
   await sendVerificationMail(
     response?.email as string,
     response?._id as mongoose.Types.ObjectId,
-    response?.name
+    response?.name,
+    body.url
   )
 
   return {
     response: response,
-    message: 'Patient created successfully, and Verification Mail has been sent'
+    message:
+      'Patient created successfully, and Verification Mail has been sent'
   }
 }
 
@@ -106,8 +108,7 @@ export const updatePatient: RequestHandler = async ({ body, params }) => {
 
   return {
     response: response,
-    message:
-      'Patient updated successfully'
+    message: 'Patient updated successfully'
   }
 }
 
