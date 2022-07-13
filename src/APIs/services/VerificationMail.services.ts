@@ -100,10 +100,10 @@ export const resendVerificationMail = async (
       subject: 'Verification Mail',
       userName: userName || 'My Friend',
       mailBody: `Please Open this link to Verify you appliction`,
-      url: `${url}:${verificationToken}`
+      url: `${url}/${verificationToken.token}`
     })
 
-    return { verificationToken, data }
+    return { verificationToken: verificationToken.token, data }
   }
 
   const newToken = await generateToken(id, email)
