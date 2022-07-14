@@ -14,7 +14,6 @@ import uploadPhotosMiddleware from '../middlewares/uploadPhotosMiddleware'
 const router = express.Router()
 router.get(
   '/',
-  checkAuthentication,
   (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: PatientController.getAllPatients })
   }
@@ -46,7 +45,6 @@ router.get(
 router.get(
   '/healthFiles/:id',
   validatePatientId,
-  checkAuthentication,
   (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: PatientController.getPatientMedicalRecords })
   }
@@ -63,9 +61,8 @@ router.post(
 
 router.post(
   '/healthFiles/:id',
-  uploadMedicalRecordsStorage,
   validatePatientId,
-  checkAuthentication,
+  uploadMedicalRecordsStorage,
   (req: Request, res: Response, next: NextFunction) => {
     handler({ req, res, next, fn: PatientController.uploadMedicalRecord })
   }

@@ -5,6 +5,7 @@ import {
 import express, { Application } from 'express'
 import Routes from './APIs/routes/index'
 import cors from 'cors'
+import numeral from 'numeral'
 
 const app: Application = express()
 const port = 3000
@@ -22,3 +23,8 @@ app.use(notFoundHandler)
 app.listen(port, () => {
   return console.log(`Express is listening at http://${host}:${port}`)
 })
+
+setInterval(() => {
+  const { rss } = process.memoryUsage()
+  console.log(numeral(rss).format('0.0 ib'))
+}, 5000)

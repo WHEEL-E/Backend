@@ -113,13 +113,15 @@ export const getPatientMedicalRecords: RequestHandler = async ({ params }) => {
 
 export const uploadMedicalRecord: RequestHandler = async ({ params, file }) => {
   let fileMedicalRecord
+  console.log(file)
   const patientId = new mongoose.Types.ObjectId(params.id)
   // @ts-ignore
-  if (file.id === undefined) {
+  if (file === undefined) {
     fileMedicalRecord = ''
+  } else {
+    // @ts-ignore
+    fileMedicalRecord = file.id
   }
-  // @ts-ignore
-  fileMedicalRecord = file.id
   const response = await PatientsServices.uploadMedicalRecord(patientId, fileMedicalRecord)
 
   return {
