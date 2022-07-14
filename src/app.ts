@@ -5,17 +5,10 @@ import {
 import express, { Application } from 'express'
 import Routes from './APIs/routes/index'
 import cors from 'cors'
-import dotenv from 'dotenv'
-
-const config = dotenv.config()
-
-if (config.error) {
-  throw config.error
-}
 
 const app: Application = express()
-const port = process.env.PORT
-const host = process.env.HOST
+const port = 3000
+const host = 'localhost'
 
 export const database = require('./APIs/config/database_config')()
 
