@@ -3,4 +3,5 @@ export interface MailObject {
   mailBody: string;
   subject: string;
   userName: string;
+  url: string,
 }

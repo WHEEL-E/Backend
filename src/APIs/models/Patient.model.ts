@@ -10,13 +10,20 @@ import mongoose from 'mongoose'
  */
 export const getAllPatientsBySupervisorId = async (
   supervisorId: mongoose.Types.ObjectId
-) => {}
+) => {
+  const patients = await Patient.find({
+    supervisors: supervisorId
+  })
+
+  return patients
+}
 
 /**
  *
  * @param
  * @returns all patients data
  */
+
 export const getAllPatients = async () => {
   const patients = await Patient.find()
 
@@ -63,7 +70,8 @@ export const createPatient = async (patientInput: CreatePatientObjectType) => {
     height: patientInput.height,
     dob: patientInput.dob,
     smoking: patientInput.smoking,
-    profile_picture: patientInput.profile_picture
+    profile_picture: patientInput.profile_picture,
+    notification_token: patientInput.notification_token
   })
 
   return response
@@ -117,8 +125,8 @@ export const linkSupervisor = async (
   const patient = await Patient.findById(
     new mongoose.Types.ObjectId(patientID)
   )
-  if (patient?.supervisors) {
-    patient.supervisors.push(supervisorID)
+  if (patient?.associated_users) {
+    patient.associated_users.push(supervisorID)
     const res = await patient.save()
 
     return res
@@ -141,6 +149,7 @@ export const updateVerificationStatus = async (
 
   return patient
 }
+
 /**
  *
  * @param patientId

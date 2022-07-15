@@ -39,7 +39,8 @@ export const resendVerificationMailController: RequestHandler = async ({
   const response = await resendVerificationMail(
     new mongoose.Types.ObjectId(body.user_id),
     body.email,
-    body.userName || undefined
+    body.userName || undefined,
+    body.url
   )
 
   return {
@@ -49,7 +50,11 @@ export const resendVerificationMailController: RequestHandler = async ({
 }
 
 export const recoverPassword: RequestHandler = async ({ body }) => {
-  const response = await LoginService.recoverPassword(body.email, body.role)
+  const response = await LoginService.recoverPassword(
+    body.email,
+    body.url,
+    body.role
+  )
 
   return {
     response: response,
@@ -58,7 +63,11 @@ export const recoverPassword: RequestHandler = async ({ body }) => {
 }
 
 export const resetPassword: RequestHandler = async ({ params, body }) => {
-  const response = await LoginService.resetPassword(params.role, params.token, body.password)
+  const response = await LoginService.resetPassword(
+    params.role,
+    params.token,
+    body.password
+  )
 
   return {
     response: response,

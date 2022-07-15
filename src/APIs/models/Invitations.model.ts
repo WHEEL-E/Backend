@@ -50,7 +50,7 @@ export const getPatientInvitations = async (patientID: string) => {
 
 export const getSupervisorInvitations = async (supervisorID: string) => {
   const invitations = await Invitations.find({
-    from_id: new mongoose.Types.ObjectId(supervisorID)
+    to_id: new mongoose.Types.ObjectId(supervisorID)
   })
 
   return invitations

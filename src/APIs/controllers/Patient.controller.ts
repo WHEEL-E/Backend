@@ -2,10 +2,15 @@ import * as PatientsServices from '../services/Patient.services'
 import { CreatePatientObjectType } from '../types/Patient.type'
 import { RequestHandler } from 'express'
 import mongoose from 'mongoose'
+import { sendVerificationMail } from '../services/VerificationMail.services'
 
-export const getAllPatientsBySupervisorId: RequestHandler = async ({ params }) => {
+export const getAllPatientsBySupervisorId: RequestHandler = async ({
+  params
+}) => {
   const supervisorId = new mongoose.Types.ObjectId(params.id)
-  const response = await PatientsServices.getAllPatientsBySupervisorId(supervisorId)
+  const response = await PatientsServices.getAllPatientsBySupervisorId(
+    supervisorId
+  )
 
   return {
     response: response,
@@ -44,16 +49,28 @@ export const createPatient: RequestHandler = async ({ body, file }) => {
     gender: body.gender,
     height: Number(body.height),
     weight: Number(body.weight),
-    smoking: Boolean(body.smoking)
+    smoking: Boolean(body.smoking),
+    notification_token: body.notification_token
   }
 
   // @ts-ignore
-  const profilePictureFileId = file.id === undefined ? '' : file.id
-  const response = await PatientsServices.createPatient(patientInfo, profilePictureFileId)
+  const profilePictureFileId = file === undefined ? '' : file.id
+  const response = await PatientsServices.createPatient(
+    patientInfo,
+    profilePictureFileId
+  )
+
+  await sendVerificationMail(
+    response?.email as string,
+    response?._id as mongoose.Types.ObjectId,
+    response?.name,
+    body.url
+  )
 
   return {
     response: response,
-    message: 'Patient created successfully'
+    message:
+      'Patient created successfully, and Verification Mail has been sent'
   }
 }
 
@@ -69,7 +86,7 @@ export const deletePatient: RequestHandler = async ({ params }) => {
 
 export const updatePatient: RequestHandler = async ({ body, params }) => {
   const patientId = new mongoose.Types.ObjectId(params.id)
-  const updatePatientInput : CreatePatientObjectType = {
+  const updatePatientInput: CreatePatientObjectType = {
     patient_name: body.patient_name,
     email: body.email,
     address: body.address,
@@ -84,7 +101,10 @@ export const updatePatient: RequestHandler = async ({ body, params }) => {
     profile_picture: body.profile_picture
   }
 
-  const response = await PatientsServices.updatePatient(patientId, updatePatientInput)
+  const response = await PatientsServices.updatePatient(
+    patientId,
+    updatePatientInput
+  )
 
   return {
     response: response,
@@ -120,7 +140,10 @@ export const uploadMedicalRecord: RequestHandler = async ({ params, file }) => {
   }
   // @ts-ignore
   fileMedicalRecord = file.id
-  const response = await PatientsServices.uploadMedicalRecord(patientId, fileMedicalRecord)
+  const response = await PatientsServices.uploadMedicalRecord(
+    patientId,
+    fileMedicalRecord
+  )
 
   return {
     response,

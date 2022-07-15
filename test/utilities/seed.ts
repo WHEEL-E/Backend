@@ -4,17 +4,17 @@ import * as ReminderModel from '../../src/APIs/models/Reminder.model'
 import { CreateNoteObjectType } from '../../src/APIs/types/Note.type'
 import { CreatePatientObjectType } from '../../src/APIs/types/Patient.type'
 import { CreateReminderObjectType } from '../../src/APIs/types/Reminder.type'
-import mongoose from 'mongoose'
 import { UnprocessableError } from '../../src/APIs/types/general.types'
+import mongoose from 'mongoose'
 
 export const createNote = async ():Promise<mongoose.Types.ObjectId[]> => {
   const note:CreateNoteObjectType = {
-    userId: '6263ce0577164ec6745e3bd7',
+    user_id: '6263ce0577164ec6745e3bd7',
     title: 'Hello',
     description: 'world!'
   }
   const note2:CreateNoteObjectType = {
-    userId: '6263ce0577164ec6745e3bd7',
+    user_id: '6263ce0577164ec6745e3bd7',
     title: 'Hello2',
     description: 'world2!'
   }

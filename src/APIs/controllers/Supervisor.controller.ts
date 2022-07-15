@@ -4,22 +4,24 @@ import mongoose from 'mongoose'
 import { sendVerificationMail } from '../services/VerificationMail.services'
 
 export const supervisiorSignUp: RequestHandler = async ({ body, file }) => {
-  let profilePictureFileId
-  // @ts-ignore becasue property id doesn't exist on type file as it's not supported by docs
-  if (file.id === undefined) {
-    profilePictureFileId = ''
-  }
   // @ts-ignore
-  profilePictureFileId = file.id
+  const profilePictureFileId = file === undefined ? '' : file.id
+
   const supervisor = await SupervisorServices.createSupervisor(
     body,
     profilePictureFileId
   )
-  await sendVerificationMail(supervisor.email, supervisor._id, supervisor.name)
+  await sendVerificationMail(
+    supervisor.email,
+    supervisor._id,
+    supervisor.name,
+    body.url
+  )
 
   return {
     response: supervisor,
-    message: 'Successfully Registered'
+    message:
+      'Supervisor created successfully, and Verification Mail has been sent'
   }
 }
 

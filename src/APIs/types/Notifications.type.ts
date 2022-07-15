@@ -1,3 +1,4 @@
+import { USER_ROLES } from './User.types'
 import mongoose from 'mongoose'
 
 export interface NotificationObjectType {
@@ -7,4 +8,5 @@ export interface NotificationObjectType {
     description: string;
     isRead: boolean;
     type: string;
+    userRole: USER_ROLES
 }
