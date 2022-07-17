@@ -2,8 +2,9 @@ import * as PatientModel from '../models/Patient.model'
 import * as ResetPasswordTokenModel from '../models/ResetPasswordTokens.model'
 import * as SupervisorModel from '../models/Supervisor.model'
 import * as jwt from 'jsonwebtoken'
-import { MailObject } from '../types/sendingMail.types'
+import { IPatientModel } from '../types/Patient.type'
 import { USER_ROLES } from '../types/User.types'
+import { MailObject } from '../types/sendingMail.types'
 import { UnprocessableError } from '../types/general.types'
 import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
@@ -33,10 +34,36 @@ export const login = async (email: string, password: string, role: string) => {
   if (!validPass) {
     throw new UnprocessableError('Password is invalid')
   }
+
   const token = generateToken(user._id, email, password)
+  const associatedUsers: any = []
+
+  switch (role) {
+    case USER_ROLES.PATIENT:
+      await Promise.all(
+        user.associated_users.map(async (user: mongoose.Types.ObjectId) => {
+          const { name, address, profile_picture, _id } =
+            await SupervisorModel.getSupervisorById(user)
+          associatedUsers.push({ name, address, profile_picture, _id })
+        })
+      )
+      break
+    case USER_ROLES.SUPERVISOR:
+      await Promise.all(
+        user.associated_users.map(async (user: mongoose.Types.ObjectId) => {
+          const { name, address, profile_picture, _id } =
+            (await PatientModel.getPatient(user)) as IPatientModel
+          associatedUsers.push({ name, address, profile_picture, _id })
+        })
+      )
+      break
+    default:
+      break
+  }
 
   return {
     ...user._doc,
+    associatedUsers,
     token: token
   }
 }
@@ -124,7 +151,7 @@ const updateUser = async (userId: mongoose.Types.ObjectId, role: string, newPass
  * @param role Patient or supervisor
  * @description Checks for the reset password token and sends an email to the user
  */
-export const recoverPassword = async (email: string, role: USER_ROLES) => {
+export const recoverPassword = async (email: string, url:string, role: USER_ROLES) => {
   const user = await decideUser(email, role)
   if (!user) {
     throw new UnprocessableError(`${role} was not found, please provide valid id`)
@@ -139,12 +166,13 @@ export const recoverPassword = async (email: string, role: USER_ROLES) => {
   const resetToken = crypto.randomBytes(32).toString('hex')
   token = await ResetPasswordTokenModel.createResetPasswordToken(user._id, resetToken)
   // refactor URL to environment variable later
-  const link = `http://localhost:3000/api/users/resetPassword/${role}/${token.token}`
+  const link = `${url}${role}/${token.token}`
   const mailData : MailObject = {
     userName: user.name,
     userMail: [email],
     mailBody: `Please reset your password using this URL: ${link}`,
-    subject: 'resetting password for wheele'
+    subject: 'resetting password for wheele',
+    url: link
   }
 
   await sendMail(mailData)
@@ -174,7 +202,8 @@ export const resetPassword = async (role:string, token:string, newPassword: stri
     userName: user.name,
     userMail: [user.email],
     mailBody: `This is the confirmation mail showing the password for your wheele account under mail ${user.email} has been changed. Keep safe ans secure.`,
-    subject: 'Your password has been changed'
+    subject: 'Your password has been changed',
+    url: ' '
   }
 
   await sendMail(mailData)

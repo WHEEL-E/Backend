@@ -10,7 +10,7 @@ export interface INoteModel {
 }
 
 export type CreateNoteObjectType = {
-      userId: string
+      user_id: string
       title:string
       description: string
 }

@@ -34,14 +34,16 @@ export const getPatient = (patientId: mongoose.Types.ObjectId) => {
   return patient
 }
 
-export const getPatientMedicalRecords = async (patientId: mongoose.Types.ObjectId) => {
+export const getPatientMedicalRecords = async (
+  patientId: mongoose.Types.ObjectId
+) => {
   const patient = await PatientModel.getPatient(patientId)
   if (!patient) {
     throw new UnprocessableError('Could not fetch patient')
   }
 
   const { medical_history } = patient
-  const medicalRecords : string[] = []
+  const medicalRecords: string[] = []
 
   for (let i = 0; i < medical_history.length; i++) {
     const file = await FileModel.getMedicalRecord(medical_history[i])
@@ -91,7 +93,7 @@ export const updatePatient = (
   return patient
 }
 
-export const getPatientProfilePicture = async (patientId:string) => {
+export const getPatientProfilePicture = async (patientId: string) => {
   const patientID = new mongoose.Types.ObjectId(patientId)
   const patient = await PatientModel.getPatient(patientID)
   if (!patient) {
@@ -112,9 +114,14 @@ export const uploadMedicalRecord = async (
   patientId: mongoose.Types.ObjectId,
   healthRecord: string
 ) => {
-  const patient = await PatientModel.uploadMedicalRecord(patientId, healthRecord)
+  const patient = await PatientModel.uploadMedicalRecord(
+    patientId,
+    healthRecord
+  )
   if (!patient) {
-    throw new UnprocessableError('Could not add medical record to the patient profile')
+    throw new UnprocessableError(
+      'Could not add medical record to the patient profile'
+    )
   }
 
   return patient

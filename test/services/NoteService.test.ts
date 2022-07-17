@@ -27,7 +27,7 @@ describe('Testing Note Service', () => {
 
   test('Create note', async () => {
     const noteInput:CreateNoteObjectType = {
-      userId: '6263ce0577164ec6745e3bd7',
+      user_id: '6263ce0577164ec6745e3bd7',
       title: 'Hello',
       description: 'world!'
     }
