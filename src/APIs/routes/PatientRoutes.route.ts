@@ -21,7 +21,7 @@ router.get(
 )
 
 router.get(
-  '/:id',
+  '/supervisor/:id',
   validateSupervisorId,
   checkAuthentication,
   (req: Request, res: Response, next: NextFunction) => {
@@ -35,7 +35,7 @@ router.get(
 )
 
 router.get(
-  '/:id',
+  '/patient/:id',
   validatePatientId,
   checkAuthentication,
   (req: Request, res: Response, next: NextFunction) => {
@@ -53,7 +53,7 @@ router.get(
 )
 
 router.post(
-  '/',
+  '/signup',
   uploadPhotosMiddleware,
   validatePatientCreation,
   (req: Request, res: Response, next: NextFunction) => {
