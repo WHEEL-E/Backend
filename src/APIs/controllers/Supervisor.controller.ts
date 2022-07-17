@@ -2,8 +2,9 @@ import * as SupervisorServices from '../services/Supervisors.services'
 import { RequestHandler } from 'express'
 import mongoose from 'mongoose'
 import { sendVerificationMail } from '../services/VerificationMail.services'
+import { SupervisorObjectType } from '../types/Supervisor.type'
 
-export const supervisiorSignUp: RequestHandler = async ({ body, file }) => {
+export const supervisorSignUp: RequestHandler = async ({ body, file }) => {
   let profilePictureFileId
   // @ts-ignore becasue property id doesn't exist on type file as it's not supported by docs
   if (file.id === undefined) {
@@ -11,8 +12,18 @@ export const supervisiorSignUp: RequestHandler = async ({ body, file }) => {
   }
   // @ts-ignore
   profilePictureFileId = file.id
+  
+  const supervisorData : SupervisorObjectType ={
+    name:body.name,
+    email:body.email,
+    password: body.password,
+    phone: Number(body.phone),
+    gender: body.gender,
+    profile_picture:""
+  }
+
   const supervisor = await SupervisorServices.createSupervisor(
-    body,
+    supervisorData,
     profilePictureFileId
   )
   await sendVerificationMail(supervisor.email, supervisor._id, supervisor.name)

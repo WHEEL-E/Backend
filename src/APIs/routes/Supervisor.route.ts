@@ -51,7 +51,7 @@ router.post(
   uploadPhotosMiddleware,
   SupervisorValidator.validateSupervisorCreation,
   (req: Request, res: Response, next: NextFunction) =>
-    handler({ req, res, next, fn: SupervisorController.supervisiorSignUp })
+    handler({ req, res, next, fn: SupervisorController.supervisorSignUp })
 )
 
 router.put(
