@@ -3,10 +3,10 @@ import {
   CreateInvitationObjectType,
   InvitationStatus
 } from '../types/Invitation.types'
+import { getPatient, linkSupervisor } from '../models/Patient.model'
+import { getSupervisorById, linkPatient } from '../models/Supervisor.model'
 import { USER_ROLES } from '../types/User.types'
 import { UnprocessableError } from '../types/general.types'
-import { getSupervisorById, linkPatient } from '../models/Supervisor.model'
-import { getPatient, linkSupervisor } from '../models/Patient.model'
 import mongoose from 'mongoose'
 
 export const sendInvitationService = async (
@@ -56,7 +56,7 @@ export const getInvitations = async (userID: string, userType: USER_ROLES) => {
 
   const AllInvitations = await getInvitationDetails(invitations as [])
 
-  console.log(AllInvitations)
+  return AllInvitations
 }
 
 export const acceptInvitation = async (inivitationID: string) => {
